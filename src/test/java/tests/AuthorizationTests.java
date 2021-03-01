@@ -2,6 +2,8 @@ package tests;
 
 import endpoints.AuthorizationEndpoints;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.DisplayName;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,50 +13,53 @@ import static org.testng.Assert.*;
 
 public class AuthorizationTests extends BaseClass{
 
-    private static final String responseMessage_badPassword = "BAD_PASSWORD";
-    private static final String responseMessage_userNotFound = "User not found";
-    private static final String responseMessage_mustBeNotNull = "must not be null";
-    private static final String responseMessage_tooManyLoginAttempts = "TOO_MANY_LOGIN_ATTEMPTS";
-    private static final String responseMessage_userBlocked = "USER_BLOCKED";
-    private static final String responseMessage_userNotActive = "USER_NOT_ACTIVE";
-    private static final String responseMessage_shouldResetPassword = "SHOULD_RESET_PASSWORD";
-    private static final String responseMessage_passwordExpired = "PASSWORD_EXPIRED";
-    private static final String responseMessage_mfaRequired = "MFA_REQUIRED";
+    private static final String RESPONSE_MESSAGE_BAD_PASSWORD = "BAD_PASSWORD";
+    private static final String RESPONSE_MESSAGE_USER_NOT_FOUND = "User not found";
+    private static final String RESPONSE_MESSAGE_MUST_BE_NOT_NULL = "must not be null";
+    private static final String RESPONSE_MESSAGE_TOO_MANY_LOGIN_ATTEMPTS = "TOO_MANY_LOGIN_ATTEMPTS";
+    private static final String RESPONSE_MESSAGE_USER_BLOCKED = "USER_BLOCKED";
+    private static final String RESPONSE_MESSAGE_USER_NOT_ACTIVE = "USER_NOT_ACTIVE";
+    private static final String RESPONSE_MESSAGE_SHOULD_RESET_PASSWORD = "SHOULD_RESET_PASSWORD";
+    private static final String RESPONSE_MESSAGE_PASSWORD_EXPIRED = "PASSWORD_EXPIRED";
+    private static final String RESPONSE_MESSAGE_MFA_REQUIRED = "MFA_REQUIRED";
 
     @Test
+    @DisplayName("User logged in correctly")
     void givenProperEmailAndPasswordWhenPostAuthorizeThenUserIsLoggedInTest() {
         Response response = AuthorizationEndpoints.postAuth_userAuthorized();
-        assertEquals(response.statusCode(), 200);
+        assertEquals(response.statusCode(), HttpStatus.SC_OK);
 
         assertThat(response.body().jsonPath().getString("accessToken"), is(notNullValue()));
         assertThat(response.body().jsonPath().getString("refreshToken"), is(notNullValue()));
     }
 
-
     @Test
+    @DisplayName("Wrong email while login")
     void givenNonExistingEmailAndCorrectPasswordWhenPostAuthorizeThenUserIsNotLoggedInTest() {
         Response response = AuthorizationEndpoints.postAuth_userNotAuthorized_WrongEmail();
         String bodyMessage = response.body().jsonPath().getString("message");
 
-        assertEquals(response.statusCode(), 404);
-        assertEquals(bodyMessage, responseMessage_userNotFound);
+        assertEquals(response.statusCode(), HttpStatus.SC_NOT_FOUND);
+        assertEquals(bodyMessage, RESPONSE_MESSAGE_USER_NOT_FOUND);
     }
 
     @Test
+    @DisplayName("Wrong password while login")
     void givenProperEmailAndIncorrectPasswordWhenPostAuthorizeThenUserIsNotLoggedInTest() {
         Response response = AuthorizationEndpoints.postAuth_userNotAuthorized_WrongPassword();
         String bodyMessage = response.body().jsonPath().getString("message");
-        assertEquals(response.statusCode(), 406);
-        assertEquals(bodyMessage, responseMessage_badPassword);
+        assertEquals(response.statusCode(), HttpStatus.SC_NOT_ACCEPTABLE);
+        assertEquals(bodyMessage, RESPONSE_MESSAGE_BAD_PASSWORD);
     }
 
     @Test(invocationCount = 5)
+    @DisplayName("Five times wrong password provided while login")
     void givenProperEmailAndIncorrectPasswordWhenFiveTimesSentThenUserIsBlockedTest() {
         Response response = AuthorizationEndpoints.postAuth_userNotAuthorized_WrongPassword();
         String bodyMessage = response.body().jsonPath().getString("message");
 
-        assertEquals(response.statusCode(), 406);
-        assertEquals(bodyMessage, responseMessage_tooManyLoginAttempts);
+        assertEquals(response.statusCode(), HttpStatus.SC_NOT_ACCEPTABLE);
+        assertEquals(bodyMessage, RESPONSE_MESSAGE_TOO_MANY_LOGIN_ATTEMPTS);
     }
 
 //    @Test

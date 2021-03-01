@@ -7,13 +7,13 @@ import static io.restassured.RestAssured.given;
 
 public class AuthorizationEndpoints {
 
-    private static final String authEndpoint = "/auth";
+    private static final String POST_AUTH_ENDPOINT = "/auth";
 
     public static Response userAuthBuilder(String email, String password) {
         UserAuth userAuth = UserAuth.builder().email(email).password(password).build();
 
         return given().body(userAuth)
-                .when().post(authEndpoint);
+                .when().post(POST_AUTH_ENDPOINT);
     }
 
 
@@ -23,7 +23,7 @@ public class AuthorizationEndpoints {
         userAuth.setPassword("Tester123!");
 
         return given().body(userAuth)
-                .when().post(authEndpoint);
+                .when().post(POST_AUTH_ENDPOINT);
     }
 
     public static Response postAuth_userNotAuthorized_WrongEmail() {
@@ -32,7 +32,7 @@ public class AuthorizationEndpoints {
         userAuth.setPassword("maselko");
 
         return given().body(userAuth)
-                .when().post(authEndpoint);
+                .when().post(POST_AUTH_ENDPOINT);
     }
 
     public static Response postAuth_userNotAuthorized_WrongPassword() {
@@ -41,29 +41,8 @@ public class AuthorizationEndpoints {
         userAuth.setPassword("maselko");
 
         return given().body(userAuth)
-                .when().post(authEndpoint);
+                .when().post(POST_AUTH_ENDPOINT);
     }
-
-//    public static Response userNotAuthorized_WrongPasswordTypedFiveTimes() {
-//
-//
-//        for(int i = 0; i < 5; i++) {
-//
-//            UserAuth userAuth = new UserAuth();
-//            userAuth.setEmail("wrong@email.com");
-//            userAuth.setPassword("maselko");
-//
-//            return given()
-//                    .body(userAuth)
-//                    .when().post(authUrl);
-//        }
-//
-//    }
-
-
-//    public static Response incorrectEmailOrPasswordTypedFiveTimes()
-//        UserAuth userAuth = new UserAuth();
-//
 
 
 
