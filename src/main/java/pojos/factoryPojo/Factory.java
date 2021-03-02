@@ -13,8 +13,8 @@ import java.util.List;
 @ToString
 public class Factory {
 
-    //private int totalPages;
-    //private int totalElements;
+    private int totalPages;
+    private int totalElements;
     private int size;
     private List<Content> content;
     private int number;
@@ -22,6 +22,6 @@ public class Factory {
     private int numberOfElements;
     private boolean last;
     private boolean first;
-    //private Pageable pageable;
+    private Pageable pageable;
     private boolean empty;
 }

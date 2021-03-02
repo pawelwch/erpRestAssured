@@ -1,20 +1,23 @@
 package pojos.userPojo;
 
-import pojos.factoryPojo.Factory;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class User {
-
-    private String mfaStatus;
-    private Factory factory;
-    private String createdAt;
-    private Roles[] roles;
-    private String shouldResetPassword;
-    private String id;
-    private String userType;
-    private String lastPasswordChange;
-    private String passwordExpirationInDays;
+    private List<Integer> roleIds;
+    private String phone;
+    private String factoryId;
+    private String fullName;
+    private String avatar;
+    private String type;
     private String email;
-    private UserProfile userProfile;
-    private String status;
-
+    private UserTypes userTypes;
 }
