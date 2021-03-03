@@ -14,10 +14,9 @@ import java.util.List;
 public class User {
     private List<Integer> roleIds;
     private String phone;
-    private String factoryId;
+    //private int factoryId;
     private String fullName;
     private String avatar;
-    private String type;
     private String email;
-    private UserTypes userTypes;
+    private UserTypes type;
 }
