@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @ToString
 public class User {
+    private Integer id;
     private List<Integer> roleIds;
     private String phone;
     //private int factoryId;

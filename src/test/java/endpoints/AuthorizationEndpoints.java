@@ -44,6 +44,15 @@ public class AuthorizationEndpoints {
                 .when().post(POST_AUTH_ENDPOINT);
     }
 
+    public static String postAuth_getToken() {
+        UserAuth userAuth = new UserAuth();
+        userAuth.setEmail("pawel.maryniak+1@4soft.co");
+        userAuth.setPassword("Tester123!");
+
+        return given().body(userAuth)
+                .when().post(POST_AUTH_ENDPOINT).body().jsonPath().getString("accessToken");
+    }
+
 
 
 }
