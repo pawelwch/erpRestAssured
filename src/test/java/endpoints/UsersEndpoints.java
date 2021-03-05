@@ -38,8 +38,11 @@ public class UsersEndpoints {
                 .fullName(faker.name().fullName())
                 .avatar(faker.avatar().image())
                 .roleIds(List.of(1,2))
-                //.factoryId()
                 .build();
+
+        if (userTypes.equals(UserTypes.FOREMAN)) {
+            user.setFactoryId(1);
+        }
 
         return given().auth().preemptive().oauth2(token).body(user)
                 .when().post(POST_USER_ENDPOINT);

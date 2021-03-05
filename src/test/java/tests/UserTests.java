@@ -2,15 +2,15 @@ package tests;
 
 import endpoints.AuthorizationEndpoints;
 import endpoints.UsersEndpoints;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.testng.annotations.Test;
 import pojos.authPojo.UserAuth;
+import pojos.userPojo.EntireUserProfile;
 import pojos.userPojo.User;
 import pojos.userPojo.UserTypes;
-
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -65,30 +65,19 @@ public class UserTests extends BaseClass{
         assertEquals(userId, getUserById.body().jsonPath().getInt("id"));
         assertEquals(getUserById.body().jsonPath().getString("userType"), "FOREMAN");
         assertThat(getUserById.statusCode(), is(200));
-        // todo dopytac Seby jak zrobic zeby pole factoryId raz było wymagane a raz nie - w zależnosci od roli ktora rejestrujemy
     }
 
-
-    //todo dopytać jak zrobić zeby testy poprawnie nazywać w runnerze - @DispalyName i @Test nie działa
-    @Test(description = "dsf")
-    @DisplayName("After creating a user, get all user data by passing his ID and check if correct data returned")
+    @Test
+    @DisplayName("After creating an Administrator, get all user data by passing his ID and check if correct data returned")
     void givenCreatedUserIdWhenGetUserEndpointThenUserDataIsReturnedTest() {
-        // 1. Logowanie jako admin
         String token = AuthorizationEndpoints.postAuth_getToken();
+        EntireUserProfile user = UsersEndpoints.postUser(token, UserTypes.ADMINISTRATOR).then().extract().body().as(EntireUserProfile.class);
+        Response createdUserData = UsersEndpoints.getUserById(token, user.getId());
 
-        // 2. Tworzenie usera i deserializacja obiektu
-        User createdUser = UsersEndpoints.postUser(token, UserTypes.ADMINISTRATOR).then().extract().body().as(User.class);
-        // 3. Pobranie GETem danych o userze
-        Response createdUserData = UsersEndpoints.getUserById(token, createdUser.getId());
+        assertThat(user.getUserProfile().getId(), is(createdUserData.body().jsonPath().getInt("id")));
+        assertThat(user.getEmail(), is(createdUserData.body().jsonPath().getString("email")));
+        assertThat(user.getUserProfile().getFullName(), is(equalTo(createdUserData.body().jsonPath().getString("userProfile.fullName"))));
 
-        assertThat(createdUser.getId(), is(createdUserData.body().jsonPath().getInt("id")));
-        assertThat(createdUser.getEmail(), is(createdUserData.body().jsonPath().getString("email")));
-        assertThat(createdUser.getFullName(), is(equalTo(createdUserData.body().jsonPath().getString("fullName"))));
-
-        System.out.println(createdUser.getFullName());
-        System.out.println(createdUser.getEmail());
-        System.out.println(createdUser.getId());
-        // todo dopytac Seby czemu deserializowany fullName zwraca null
     }
 
     @Test
