@@ -1,8 +1,11 @@
 package endpoints;
 
 import com.github.javafaker.Faker;
+import com.google.gson.JsonObject;
 import io.restassured.response.Response;
 import jdk.jfr.Description;
+import pojos.authPojo.UserLogin;
+import pojos.userManagement.UserDeleteCommand;
 import pojos.userPojo.User;
 import pojos.userPojo.UserTypes;
 import tests.UserTests;
@@ -19,6 +22,7 @@ public class UsersEndpoints {
     private static final String POST_USER_ENDPOINT = "/users-management";
     private static final String GET_USER_BY_ID_ENDPOINT = "/users-management/{userId}";
     private static final String DELETE_USER_BY_ID_ENDPOINT = "/users-management/delete/{userId}";
+    private static final String BLOCK_USER_BY_ID_ENDPOINT = "/users-management/block/{userId}";
 
 
     @Description("Method to fetch logged in user details")
@@ -56,9 +60,17 @@ public class UsersEndpoints {
     }
 
     @Description("Method to delete a specific user by passing his id")
-    public static Response deleteUserById(String password, int userId) {
-        return given().body(password).pathParam("userId", userId)
+    public static Response deleteUserById(String password, int userId, String token) {
+        return given().body(new UserDeleteCommand(password)).pathParam("userId", userId).auth().preemptive().oauth2(token)
                 .when().put(DELETE_USER_BY_ID_ENDPOINT);
     }
+
+    @Description("Method allowing to block other Operators")
+    public static Response blockUserById(String password, int userId, String token) {
+        return given().body(password).pathParam("userId", userId).auth().preemptive().oauth2(token)
+                .when().put(BLOCK_USER_BY_ID_ENDPOINT);
+    }
+
+    //todo zrobic metode do veryfikacji konta
 
 }

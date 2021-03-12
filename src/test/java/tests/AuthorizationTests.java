@@ -40,7 +40,7 @@ public class AuthorizationTests extends BaseClass{
         String bodyMessage = response.body().jsonPath().getString("message");
 
         assertEquals(response.statusCode(), HttpStatus.SC_NOT_FOUND);
-        assertEquals(bodyMessage, RESPONSE_MESSAGE_USER_NOT_FOUND);
+        assertThat(bodyMessage, is((RESPONSE_MESSAGE_USER_NOT_FOUND)) );
     }
 
     @Test

@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class UserAuth {
+public class UserLogin {
 
     private String email;
     private String password;
