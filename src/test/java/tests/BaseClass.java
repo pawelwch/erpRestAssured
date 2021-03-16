@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 public class BaseClass {
 
     @BeforeClass
-    public void setupConfiguration(){
+    public void setup_configuration(){
         System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * NEW TEST * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ");
         RestAssured.baseURI = "https://core.test.ge.4soft.dev/";
         //RestAssured.basePath = "v2";

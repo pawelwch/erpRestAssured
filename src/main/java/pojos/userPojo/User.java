@@ -15,6 +15,7 @@ public class User {
     private Integer id;
     private List<Integer> roleIds;
     private String phone;
+    private String contactPhone;
     private Integer factoryId;
     private String fullName;
     private String avatar;

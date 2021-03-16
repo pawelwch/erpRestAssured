@@ -25,7 +25,7 @@ public class AuthorizationTests extends BaseClass{
 
     @Test
     @DisplayName("User logged in correctly")
-    void givenProperEmailAndPasswordWhenPostAuthorizeThenUserIsLoggedInTest() {
+    void given_existing_user_data_check_if_authorized_correctly_test() {
         Response response = AuthorizationEndpoints.postAuth_userAuthorized();
         assertEquals(response.statusCode(), HttpStatus.SC_OK);
 
@@ -34,8 +34,8 @@ public class AuthorizationTests extends BaseClass{
     }
 
     @Test
-    @DisplayName("Wrong email while login")
-    void givenNonExistingEmailAndCorrectPasswordWhenPostAuthorizeThenUserIsNotLoggedInTest() {
+    @DisplayName("While login, pass wrong email and correct password and check if can login")
+    void given_wrong_email_try_to_login_test() {
         Response response = AuthorizationEndpoints.postAuth_userNotAuthorized_WrongEmail();
         String bodyMessage = response.body().jsonPath().getString("message");
 
@@ -44,8 +44,8 @@ public class AuthorizationTests extends BaseClass{
     }
 
     @Test
-    @DisplayName("Wrong password while login")
-    void givenProperEmailAndIncorrectPasswordWhenPostAuthorizeThenUserIsNotLoggedInTest() {
+    @DisplayName("While login, pass wrong password and correct email and check if can login")
+    void given_correct_email_and_wrong_password_check_if_can_login_test() {
         Response response = AuthorizationEndpoints.postAuth_userNotAuthorized_WrongPassword();
         String bodyMessage = response.body().jsonPath().getString("message");
         assertEquals(response.statusCode(), HttpStatus.SC_NOT_ACCEPTABLE);
@@ -53,13 +53,14 @@ public class AuthorizationTests extends BaseClass{
     }
 
     @Test(invocationCount = 5)
-    @DisplayName("Five times wrong password provided while login")
-    void givenProperEmailAndIncorrectPasswordWhenFiveTimesSentThenUserIsBlockedTest() {
+    @DisplayName("While login, pass wrong password `n` number of times and check if too many login attempts error")
+    void given_wrong_password_specific_number_of_times_check_if_too_many_attempts_error_appears_test() {
         Response response = AuthorizationEndpoints.postAuth_userNotAuthorized_WrongPassword();
         String bodyMessage = response.body().jsonPath().getString("message");
 
         assertEquals(response.statusCode(), HttpStatus.SC_NOT_ACCEPTABLE);
         assertEquals(bodyMessage, RESPONSE_MESSAGE_TOO_MANY_LOGIN_ATTEMPTS);
+
     }
 
 //    @Test

@@ -14,9 +14,9 @@ public class FactoryTests extends BaseClass{
 
     @Test
     @DisplayName("Get all factories test")
-    void givenValidTokenWhenGetAllFactoriesThenAllFactoriesAreReturnedTest() {
+    void get_all_factories_test() {
         String token = AuthorizationEndpoints.postAuth_userAuthorized().then().extract().response().path("accessToken");
-        Response response = FactoryEndpoints.getAllFactories_WithToken(token);
+        Response response = FactoryEndpoints.get_allFactories_WithToken(token);
         int totalFactories = response.jsonPath().getInt("total");
 
         assertThat(response.statusCode(), equalTo(HttpStatus.SC_OK));
@@ -24,13 +24,13 @@ public class FactoryTests extends BaseClass{
     }
 
     @Test
-    @DisplayName("Factories not fetched because of no token provided")
-    void givenNoTokenWhenGetAllFactoriesThenUserCanNotRetrieveFactoriesTest() {
-        Response response = FactoryEndpoints.getAllFactories_WithoutToken();
+    @DisplayName("Factories not fetched because no token provided")
+    void get_all_factories_being_not_authorized_test() {
+        Response response = FactoryEndpoints.get_allFactories_WithoutToken();
         assertThat(response.statusCode(), is(HttpStatus.SC_FORBIDDEN));
 
         assertThat(response.body().jsonPath().getString("error"), is("Forbidden"));
-        givenValidTokenWhenGetAllFactoriesThenAllFactoriesAreReturnedTest();
+        get_all_factories_test();
     }
 
 
