@@ -20,8 +20,8 @@ public class AuthorizationEndpoints {
 
     public static Response postAuth_userAuthorized() {
         UserLogin userLogin = new UserLogin();
-        userLogin.setEmail("pawel.maryniak+1@4soft.co");
-        userLogin.setPassword("Tester123!");
+        userLogin.setEmail("admin@admin.pl");
+        userLogin.setPassword("maselko");
 
         return given().body(userLogin)
                 .when().post(POST_AUTH_ENDPOINT);
@@ -38,8 +38,8 @@ public class AuthorizationEndpoints {
 
     public static Response postAuth_userNotAuthorized_WrongPassword() {
         UserLogin userLogin = new UserLogin();
-        userLogin.setEmail("pawel.maryniak+1@4soft.co");
-        userLogin.setPassword("maselko");
+        userLogin.setEmail("admin@admin.pl");
+        userLogin.setPassword("wrongPassword");
 
         return given().body(userLogin)
                 .when().post(POST_AUTH_ENDPOINT);
@@ -47,8 +47,8 @@ public class AuthorizationEndpoints {
 
     public static String postAuth_getToken() {
         UserLogin userLogin = new UserLogin();
-        userLogin.setEmail("pawel.maryniak+1@4soft.co");
-        userLogin.setPassword("Tester123!");
+        userLogin.setEmail("admin@admin.pl");
+        userLogin.setPassword("maselko");
 
         return given().body(userLogin)
                 .when().post(POST_AUTH_ENDPOINT).body().jsonPath().getString("accessToken");

@@ -143,20 +143,20 @@ public class OperatorsTests extends BaseClass{
 
 
 
-    @Test
-    @DisplayName("After creating an Administrator user role, then try to block him and check if blocked properly")
-    void create_Administrator_role_then_verify_his_account_block_him_and_check_if_blocked_test() {
-        //1. logowanie
-        String token = AuthorizationEndpoints.postAuth_getToken();
-        //2. tworzenie Operatora
-        int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
-        //todo dodac metode na aktywacje konta
-        //Response verifyResponse = UsersEndpoints.activate_user()
-        //3. blockowanie Operatora poprzez podanie jego id i hasła
-        Response response = OperatorsEndpoints.put_block_userById("Tester123!", userId, token);
-        //4. assercja czy został zablokowany
-        assertThat(response.statusCode(), is(204));
-    }
+//    @Test
+//    @DisplayName("After creating an Administrator user role, then try to block him and check if blocked properly")
+//    void create_Administrator_role_then_verify_his_account_block_him_and_check_if_blocked_test() {
+//        //1. logowanie
+//        String token = AuthorizationEndpoints.postAuth_getToken();
+//        //2. tworzenie Operatora
+//        int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
+//        //todo dodac metode na aktywacje konta
+//        //Response verifyResponse = UsersEndpoints.activate_user()
+//        //3. blockowanie Operatora poprzez podanie jego id i hasła
+//        Response response = OperatorsEndpoints.put_block_userById("Tester123!", userId, token);
+//        //4. assercja czy został zablokowany
+//        assertThat(response.statusCode(), is(204));
+//    }
 
 //    @Test
 //    @DisplayName("Edit the Operator phone number")
@@ -170,7 +170,7 @@ public class OperatorsTests extends BaseClass{
 //
 //    }
 
-    
+
 
 
     //todo test na blokowanie usera
