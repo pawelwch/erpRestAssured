@@ -1,6 +1,7 @@
 package tests;
 
 import com.github.javafaker.Faker;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -20,7 +21,8 @@ public class BaseClass {
                 .setContentType("application/json")
                 .setAccept("application/json")
                 .addFilter(new RequestLoggingFilter())
-                .addFilter(new ResponseLoggingFilter());
+                .addFilter(new ResponseLoggingFilter())
+                .addFilter(new AllureRestAssured());
         RestAssured.requestSpecification = requestSpecBuilder.build();
     }
 
