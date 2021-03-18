@@ -111,7 +111,10 @@ public class OperatorsTests extends BaseClass{
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
+
+
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
+
         //todo dopisac dodatkową assercje
     }
 
@@ -124,7 +127,9 @@ public class OperatorsTests extends BaseClass{
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
+        Response getAllOperators = OperatorsEndpoints.get_all_operators(token);
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
+
         //todo dopisac dodatkową assercje
     }
 
@@ -150,7 +155,7 @@ public class OperatorsTests extends BaseClass{
 //        String token = AuthorizationEndpoints.postAuth_getToken();
 //        //2. tworzenie Operatora
 //        int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
-//        //todo dodac metode na aktywacje konta
+//        //todo ze wzgledu na brak mozliwosci pobrania token - user nie moze zostac zweryfikowany
 //        //Response verifyResponse = UsersEndpoints.activate_user()
 //        //3. blockowanie Operatora poprzez podanie jego id i hasła
 //        Response response = OperatorsEndpoints.put_block_userById("Tester123!", userId, token);
