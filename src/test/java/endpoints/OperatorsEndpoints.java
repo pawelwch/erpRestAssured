@@ -75,7 +75,7 @@ public class OperatorsEndpoints {
     @DisplayName("Method to fetch all operators")
     public static Response get_all_operators(String token) {
         String sizeList = "1000";
-        return given().pathParam("size", sizeList).auth().preemptive().oauth2(token)
+        return given().queryParam("size", sizeList).auth().preemptive().oauth2(token)
                 .when().get(GET_OPERATORS_ENDPOINT);
     }
 

@@ -10,6 +10,8 @@ import pojos.userPojo.EntireUserProfile;
 import pojos.userPojo.User;
 import pojos.userPojo.UserTypes;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -107,15 +109,11 @@ public class OperatorsTests extends BaseClass{
     void create_Administrator_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
         int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
-        Response response = OperatorsEndpoints.delete_userById("Tester123!", userId, token);
+        Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
-
-
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
-
-        //todo dopisac dodatkową assercje
     }
 
     @Test
@@ -123,14 +121,11 @@ public class OperatorsTests extends BaseClass{
     void create_Central_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
         int userId = OperatorsEndpoints.post_user(token, UserTypes.CENTRAL).then().extract().body().jsonPath().getInt("id");
-        Response response = OperatorsEndpoints.delete_userById("Tester123!", userId, token);
+        Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
-        Response getAllOperators = OperatorsEndpoints.get_all_operators(token);
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
-
-        //todo dopisac dodatkową assercje
     }
 
     @Test
@@ -138,12 +133,11 @@ public class OperatorsTests extends BaseClass{
     void create_Foreman_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
         int userId = OperatorsEndpoints.post_user(token, UserTypes.FOREMAN).then().extract().body().jsonPath().getInt("id");
-        Response response = OperatorsEndpoints.delete_userById("Tester123!", userId, token);
+        Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
-        //todo dopisac dodatkową assercje
     }
 
 

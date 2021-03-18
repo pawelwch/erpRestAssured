@@ -1,0 +1,50 @@
+<div>POST to https://core.test.ge.4soft.dev/users-management</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+    {
+    &quot;id&quot;: null,
+    &quot;roleIds&quot;: [
+        1,
+        2
+    ],
+    &quot;phone&quot;: &quot;+48385974678&quot;,
+    &quot;contactPhone&quot;: &quot;+48926146075&quot;,
+    &quot;factoryId&quot;: 1,
+    &quot;fullName&quot;: &quot;Walton Tillman&quot;,
+    &quot;avatar&quot;: &quot;https://s3.amazonaws.com/uifaces/faces/twitter/foczzi/128.jpg&quot;,
+    &quot;email&quot;: &quot;delois.tillman@gmail.com&quot;,
+    &quot;type&quot;: &quot;FOREMAN&quot;,
+    &quot;factory&quot;: null
+}
+    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJnaWV3b250LWNvcmUuYXBwIiwic3ViIjoiMiIsImlhdCI6MTYxNjA3OTc5OCwiZXhwIjoxNjE2MDgwOTk4LCJwZXJtaXNzaW9ucyI6WyJFTVBMT1lFRV9DUkVBVEUiLCJQUk9GRVNTSU9OX0RFTEVURSIsIkZMQVRfQ1JFQVRFIiwiR0FURV9VUERBVEUiLCJPQ1JfQ1JFQVRFIiwiRkFDVE9SWV9SRUFEIiwiUFJPRkVTU0lPTl9SRUFEIiwiRkFDVE9SWV9DUkVBVEUiLCJVU0VSX0NSRUFURSIsIlBST0ZFU1NJT05fVVBEQVRFIiwiQUxFUlRfREVMRVRFIiwiT0NSX0RFTEVURSIsIkdBVEVfQ1JFQVRFIiwiUFJPRkVTU0lPTl9DUkVBVEUiLCJGTEFUX1VQREFURSIsIkFDTF9VUERBVEUiLCJTS0lMTF9DUkVBVEUiLCJUQVNLX1VQREFURSIsIlNLSUxMX1JFQUQiLCJHQVRFX1JFQUQiLCJGQUNUT1JZX0RFTEVURSIsIlVTRVJfUkVBRCIsIk9DUl9VUERBVEUiLCJBTEVSVF9DUkVBVEUiLCJFTVBMT1lFRV9SRUFEIiwiU0VUVElOR19DUkVBVEUiLCJGTEFUX1JFQUQiLCJTS0lMTF9VUERBVEUiLCJBQ0xfQ1JFQVRFIiwiVEFTS19ERUxFVEUiLCJTS0lMTF9ERUxFVEUiLCJVU0VSX0RFTEVURSIsIkFMRVJUX1JFQUQiLCJVU0VSX1VQREFURSIsIlNFVFRJTkdfUkVBRCIsIlNFVFRJTkdfREVMRVRFIiwiRU1QTE9ZRUVfREVMRVRFIiwiRkFDVE9SWV9VUERBVEUiLCJFTVBMT1lFRV9VUERBVEUiLCJBTEVSVF9VUERBVEUiLCJBQ0xfREVMRVRFIiwiVEFTS19SRUFEIiwiRkxBVF9ERUxFVEUiLCJBQ0xfUkVBRCIsIlNFVFRJTkdfVVBEQVRFIiwiVEFTS19DUkVBVEUiLCJPQ1JfUkVBRCIsIkdBVEVfREVMRVRFIl0sInJlZnJlc2giOmZhbHNlfQ.revF299iKdPTifaqM4chbELEUR-giwSuBLkIr7Akju_rVrL7KUYnaVQgsCJfxlYa-dnqjYdtYYKIqipx18ncmg</div>
+        <div>Accept: application/json</div>
+        <div>Content-Type: application/json; charset=UTF-8</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X POST &#39;https://core.test.ge.4soft.dev/users-management&#39; -H &#39;Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJnaWV3b250LWNvcmUuYXBwIiwic3ViIjoiMiIsImlhdCI6MTYxNjA3OTc5OCwiZXhwIjoxNjE2MDgwOTk4LCJwZXJtaXNzaW9ucyI6WyJFTVBMT1lFRV9DUkVBVEUiLCJQUk9GRVNTSU9OX0RFTEVURSIsIkZMQVRfQ1JFQVRFIiwiR0FURV9VUERBVEUiLCJPQ1JfQ1JFQVRFIiwiRkFDVE9SWV9SRUFEIiwiUFJPRkVTU0lPTl9SRUFEIiwiRkFDVE9SWV9DUkVBVEUiLCJVU0VSX0NSRUFURSIsIlBST0ZFU1NJT05fVVBEQVRFIiwiQUxFUlRfREVMRVRFIiwiT0NSX0RFTEVURSIsIkdBVEVfQ1JFQVRFIiwiUFJPRkVTU0lPTl9DUkVBVEUiLCJGTEFUX1VQREFURSIsIkFDTF9VUERBVEUiLCJTS0lMTF9DUkVBVEUiLCJUQVNLX1VQREFURSIsIlNLSUxMX1JFQUQiLCJHQVRFX1JFQUQiLCJGQUNUT1JZX0RFTEVURSIsIlVTRVJfUkVBRCIsIk9DUl9VUERBVEUiLCJBTEVSVF9DUkVBVEUiLCJFTVBMT1lFRV9SRUFEIiwiU0VUVElOR19DUkVBVEUiLCJGTEFUX1JFQUQiLCJTS0lMTF9VUERBVEUiLCJBQ0xfQ1JFQVRFIiwiVEFTS19ERUxFVEUiLCJTS0lMTF9ERUxFVEUiLCJVU0VSX0RFTEVURSIsIkFMRVJUX1JFQUQiLCJVU0VSX1VQREFURSIsIlNFVFRJTkdfUkVBRCIsIlNFVFRJTkdfREVMRVRFIiwiRU1QTE9ZRUVfREVMRVRFIiwiRkFDVE9SWV9VUERBVEUiLCJFTVBMT1lFRV9VUERBVEUiLCJBTEVSVF9VUERBVEUiLCJBQ0xfREVMRVRFIiwiVEFTS19SRUFEIiwiRkxBVF9ERUxFVEUiLCJBQ0xfUkVBRCIsIlNFVFRJTkdfVVBEQVRFIiwiVEFTS19DUkVBVEUiLCJPQ1JfUkVBRCIsIkdBVEVfREVMRVRFIl0sInJlZnJlc2giOmZhbHNlfQ.revF299iKdPTifaqM4chbELEUR-giwSuBLkIr7Akju_rVrL7KUYnaVQgsCJfxlYa-dnqjYdtYYKIqipx18ncmg&#39; -H &#39;Accept: application/json&#39; -H &#39;Content-Type: application/json; charset=UTF-8&#39; -d &#39;{
+    &quot;id&quot;: null,
+    &quot;roleIds&quot;: [
+        1,
+        2
+    ],
+    &quot;phone&quot;: &quot;+48385974678&quot;,
+    &quot;contactPhone&quot;: &quot;+48926146075&quot;,
+    &quot;factoryId&quot;: 1,
+    &quot;fullName&quot;: &quot;Walton Tillman&quot;,
+    &quot;avatar&quot;: &quot;https://s3.amazonaws.com/uifaces/faces/twitter/foczzi/128.jpg&quot;,
+    &quot;email&quot;: &quot;delois.tillman@gmail.com&quot;,
+    &quot;type&quot;: &quot;FOREMAN&quot;,
+    &quot;factory&quot;: null
+}&#39;
+</div>
