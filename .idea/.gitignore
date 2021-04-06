@@ -1,2 +1,9 @@
 # Default ignored files
 /workspace.xml
+
+# Allure
+allure-report
+allure-results
+
+# Target
+target
