@@ -8,22 +8,6 @@
     <artifactId>Giewont_RestAssured</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-<<<<<<< Updated upstream
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>9</source>
-                    <target>9</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-=======
->>>>>>> Stashed changes
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -98,10 +82,6 @@
             <artifactId>allure-rest-assured</artifactId>
             <version>2.13.0</version>
         </dependency>
-<<<<<<< Updated upstream
-    </dependencies>
-
-=======
 
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -109,6 +89,8 @@
             <version>${aspectj.version}</version>
         </dependency>
     </dependencies>
+
+
 
 
     <build>
@@ -164,7 +146,5 @@
             </plugin>
         </plugins>
     </build>
-
->>>>>>> Stashed changes
 
 </project>

@@ -3,8 +3,8 @@ package endpoints;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
-import pojos.assetsPojo.ProfessionCommand;
-import pojos.assetsPojo.ProfessionPojo;
+import pojos.assetsPojo.professionRequestPojo.ProfessionCommand;
+import pojos.assetsPojo.professionRequestPojo.ProfessionPojo;
 
 import static io.restassured.RestAssured.given;
 
@@ -22,6 +22,19 @@ public class ProfessionsEndpoints {
     public static Response get_all_professions(String token) {
         return given().auth().preemptive().oauth2(token)
                 .when().get(GET_PROFESSIONS_ENDPOINT);
+    }
+
+    @DisplayName("Get specific size of professions")
+    public static Response get_specific_size_of_professions(String token, Integer size) {
+        return given().auth().preemptive().oauth2(token).queryParam("size", size)
+                .when().get(GET_PROFESSIONS_ENDPOINT);
+    }
+
+    @DisplayName("Get all possible professions")
+    public static ProfessionPojo get_all_professions_return_pojo(String token) {
+        return given().auth().preemptive().oauth2(token)
+                .when().get(GET_PROFESSIONS_ENDPOINT)
+                .then().extract().as(ProfessionPojo.class);
     }
 
     @DisplayName("Add/Post a new profession")

@@ -3,7 +3,9 @@ package endpoints;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
-import pojos.assetsPojo.*;
+import pojos.assetsPojo.skillRequestPojo.SkillCommand;
+import pojos.assetsPojo.skillRequestPojo.SkillGroup;
+import pojos.assetsPojo.skillRequestPojo.SkillPojo;
 
 import static io.restassured.RestAssured.given;
 
@@ -22,11 +24,17 @@ public class SkillEndpoints {
                 .when().get(GET_SKILLS_ENDPOINT);
     }
 
+    @DisplayName("Get specific size of skills(by passing a *size* parameter")
+    public static Response get_specific_size_of_skills(String token, Integer size) {
+        return given().auth().preemptive().oauth2(token).queryParam("size", size)
+                .when().get(GET_SKILLS_ENDPOINT);
+    }
+
     @DisplayName("Add/Post a new skill")
-    public static Response post_skill(String token) {
+    public static Response post_skill(String token, SkillGroup skillGroup) {
         SkillCommand skillCommand = new SkillCommand();
         skillCommand.setName(faker.job().position() + " " + faker.number().randomNumber());
-
+        skillCommand.setGroup(skillGroup);
         return given().auth().preemptive().oauth2(token).body(skillCommand)
                 .when().post(POST_SKILL_ENDPOINT);
     }
