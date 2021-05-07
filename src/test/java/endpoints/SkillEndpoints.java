@@ -40,9 +40,10 @@ public class SkillEndpoints {
     }
 
     @DisplayName("Add/Post a new skill")
-    public static SkillPojo post_skill_return_pojo(String token) {
+    public static SkillPojo post_skill_return_pojo(String token, SkillGroup skillGroup) {
         SkillCommand skillCommand = new SkillCommand();
         skillCommand.setName(faker.job().position() + " " + faker.number().randomNumber());
+        skillCommand.setGroup(skillGroup);
 
         return given().auth().preemptive().oauth2(token).body(skillCommand)
                 .when().post(POST_SKILL_ENDPOINT)
@@ -58,7 +59,7 @@ public class SkillEndpoints {
     @DisplayName("Update specific skill name")
     public static Response put_skillById(String token, int skillId) {
 
-        return given().auth().preemptive().oauth2(token).body(new SkillCommand(faker.job().position(), SkillGroup.CONSTRUCTION))
+        return given().auth().preemptive().oauth2(token).body(new SkillCommand(faker.job().position()+ " " + faker.number().randomNumber(), SkillGroup.CONSTRUCTION))
                 .pathParam("skillId", skillId)
                 .when().put(PUT_SKILL_BY_ID_ENDPOINT);
     }

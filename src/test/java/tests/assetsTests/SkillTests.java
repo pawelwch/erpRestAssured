@@ -10,7 +10,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pojos.assetsPojo.assetsResponsePojo.AssetsResponsePojo;
 import pojos.assetsPojo.assetsResponsePojo.Content;
+import pojos.assetsPojo.professionRequestPojo.ProfessionPojo;
 import pojos.assetsPojo.skillRequestPojo.SkillGroup;
+import pojos.assetsPojo.skillRequestPojo.SkillPojo;
 import tests.BaseClass;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -100,6 +102,17 @@ public class SkillTests extends BaseClass {
         assertEquals(skillId, createdSkillId);
         assertThat(response.getBody().jsonPath().getString("name"), is(notNullValue()));
         assertThat(response.getBody().jsonPath().getString("authorName"), is(notNullValue()));
+    }
+
+    @Test
+    @DisplayName("Create a skill, update it's name and check whether updated properly")
+    void create_skill_then_update_name_and_check_if_updated_properly_test() {
+        SkillPojo skillPojo = SkillEndpoints.post_skill_return_pojo(token, SkillGroup.CONSTRUCTION);
+        SkillPojo updatedProfession = SkillEndpoints.put_skillById(token,skillPojo.getId()).then().extract().body().as(SkillPojo.class);
+        Response retrieveUpdatedProfession = SkillEndpoints.get_skillById(token,skillPojo.getId());
+
+        assertEquals(retrieveUpdatedProfession.statusCode(), HttpStatus.SC_OK);
+        assertThat(updatedProfession.getName(), is(retrieveUpdatedProfession.body().jsonPath().getString("name")));
     }
 
 

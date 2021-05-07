@@ -20,4 +20,9 @@ public class FactoryEndpoints {
                 .then().extract().response();
     }
 
+    public static Response post_factory(String token,) {
+
+    }
+
+
 }
