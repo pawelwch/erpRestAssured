@@ -64,9 +64,6 @@ public class ProfessionsEndpoints {
 
     @DisplayName("Update specific profession name")
     public static Response put_professionById(String token, int professionId) {
-//        ProfessionCommand professionCommand = new ProfessionCommand();
-//        professionCommand.setName(faker.job().position());
-
         return given().auth().preemptive().oauth2(token).body(new ProfessionCommand(faker.job().position() + " " + faker.number().randomNumber()))
                 .pathParam("professionId", professionId)
                 .when().put(PUT_PROFESSION_BY_ID_ENDPOINT);

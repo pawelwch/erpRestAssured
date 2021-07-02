@@ -1,10 +1,19 @@
 package pojos.assetsPojo.factoryRequestPojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class City {
 
-    private int id;
+    private Integer id;
     private String name;
-    private int latitude;
-    private int longitude;
+    private Integer latitude;
+    private Integer longitude;
     private String country;
 }
