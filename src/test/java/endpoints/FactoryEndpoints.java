@@ -44,7 +44,7 @@ public class FactoryEndpoints {
         factory.setCompany(faker.company().name());
         factory.setCodeName(faker.company().name() + " " + faker.number().randomDigit());
         factory.setStreet(faker.address().streetAddress());
-        factory.setPostcode("12-123");
+        factory.setPostcode(faker.address().zipCode());
         factory.setStreetNumber(faker.address().streetAddressNumber());
         factory.setHouseNumber(faker.address().buildingNumber());
         factory.setCityId(faker.number().numberBetween(1, 20));
