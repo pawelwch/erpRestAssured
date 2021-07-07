@@ -149,18 +149,24 @@ public class FactoryTests extends BaseClass {
         FactoryPojo factoryPojo = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
         FactoryCommand factoryCommand = new FactoryCommand(factoryPojo);
         factoryCommand.setStreetNumber(faker.address().streetAddressNumber());
-        FactoryPojo updatedStreetNumber = FactoryEndpoints.put_factoryById(token, factoryPojo.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
-        FactoryPojo getUpdatedStreetNumber = FactoryEndpoints.get_factoryById(token, updatedStreetNumber.getId()).then().extract().as(FactoryPojo.class);
+        FactoryPojo updatedHouseNumber = FactoryEndpoints.put_factoryById(token, factoryPojo.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
+        FactoryPojo getUpdatedHouseNumber = FactoryEndpoints.get_factoryById(token, updatedHouseNumber.getId()).then().extract().as(FactoryPojo.class);
 
-        assertEquals(updatedStreetNumber.getStreetNumber(), getUpdatedStreetNumber.getStreetNumber());
-        assertEquals(updatedStreetNumber.getId(), getUpdatedStreetNumber.getId());
-        assertThat(getUpdatedStreetNumber.getStreetNumber(), is(not(equalTo(factoryPojo.getStreetNumber()))));
+        assertEquals(updatedHouseNumber.getStreetNumber(), getUpdatedHouseNumber.getHouseNumber());
+        assertEquals(factoryPojo.getId(), getUpdatedHouseNumber.getId());
+        assertThat(getUpdatedHouseNumber.getHouseNumber(), is(not(equalTo(factoryPojo.getHouseNumber()))));
     }
 
     @Test
     @DisplayName("Create factory, delete it and check if deleted properly")
     void create_factory_then_delete_and_check_if_deleted_properly_test() {
         FactoryPojo factory = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
+        Response createdFactory = FactoryEndpoints.get_factoryById(token, factory.getId());
+        assertThat(createdFactory.getBody().jsonPath().getString("id"), is(notNullValue()));
+
+        FactoryEndpoints.delete_factoryById(token, createdFactory.then().extract().body().jsonPath().getInt("id"));
+        //todo dokonczyc po wprowadzeniu zmian w location providerze
+
     }
 
 }

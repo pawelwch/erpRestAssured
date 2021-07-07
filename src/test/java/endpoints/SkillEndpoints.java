@@ -57,9 +57,10 @@ public class SkillEndpoints {
     }
 
     @DisplayName("Update specific skill name")
-    public static Response put_skillById(String token, int skillId) {
+    public static Response put_skillById(String token, int skillId, SkillGroup skillGroup) {
 
-        return given().auth().preemptive().oauth2(token).body(new SkillCommand(faker.job().position()+ " " + faker.number().randomNumber(), SkillGroup.CONSTRUCTION))
+        return given().auth().preemptive().oauth2(token)
+                .body(new SkillCommand(faker.job().position()+ " " + faker.number().randomNumber(), skillGroup))
                 .pathParam("skillId", skillId)
                 .when().put(PUT_SKILL_BY_ID_ENDPOINT);
     }

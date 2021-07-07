@@ -43,52 +43,62 @@ public class SkillTests extends BaseClass {
 
     @Test
     @DisplayName("Being authorized post/add a new skill with Permission group and check if added to the list")
-    void given_active_token_check_if_can_add_skill_with_permission_group_test() {
-        int skillId = SkillEndpoints.post_skill(token, SkillGroup.PERMISSIONS).then().extract().body().jsonPath().getInt("id");
-        AssetsResponsePojo response = SkillEndpoints.get_specific_size_of_skills(token, 300).then().extract().as(AssetsResponsePojo.class);
-        boolean checkId = response.getContent().stream().map(Content::getId).anyMatch(id -> id.equals(skillId));
+    void given_active_token_check_if_can_add_skill_with_Permission_group_test() {
+        Response createdSkill = SkillEndpoints.post_skill(token, SkillGroup.PERMISSIONS);
+        assertThat(createdSkill.statusCode(), is(201));
 
-        assertTrue(checkId);
+        Response getCreatedSkill = SkillEndpoints.get_skillById(token, createdSkill.jsonPath().getInt("id"));
+        assertThat(getCreatedSkill.getStatusCode(), is(200));
+        assertThat(getCreatedSkill.body().jsonPath().getString("id"), is(notNullValue()));
+        assertThat(getCreatedSkill.body().jsonPath().getString("group"), is(SkillGroup.PERMISSIONS.toString()));
     }
 
     @Test
     @DisplayName("Being authorized post/add a new skill with Construction group and check if added to the list")
-    void given_active_token_check_if_can_add_skill_with_construction_group_test() {
-        int skillId = SkillEndpoints.post_skill(token, SkillGroup.CONSTRUCTION).then().extract().body().jsonPath().getInt("id");
-        AssetsResponsePojo response = SkillEndpoints.get_specific_size_of_skills(token, 300).then().extract().as(AssetsResponsePojo.class);
-        boolean checkId = response.getContent().stream().map(Content::getId).anyMatch(id -> id.equals(skillId));
+    void given_active_token_check_if_can_add_skill_with_Construction_group_test() {
+        Response createdSkill = SkillEndpoints.post_skill(token, SkillGroup.CONSTRUCTION);
+        assertThat(createdSkill.statusCode(), is(201));
 
-        assertTrue(checkId);
+        Response getCreatedSkill = SkillEndpoints.get_skillById(token, createdSkill.jsonPath().getInt("id"));
+        assertThat(getCreatedSkill.getStatusCode(), is(200));
+        assertThat(getCreatedSkill.body().jsonPath().getString("id"), is(notNullValue()));
+        assertThat(getCreatedSkill.body().jsonPath().getString("group"), is(SkillGroup.CONSTRUCTION.toString()));
     }
 
     @Test
     @DisplayName("Being authorized post/add a new skill with Food group and check if added to the list")
-    void given_active_token_check_if_can_add_skill_with_food_group_test() {
-        int skillId = SkillEndpoints.post_skill(token, SkillGroup.FOOD).then().extract().body().jsonPath().getInt("id");
-        AssetsResponsePojo response = SkillEndpoints.get_specific_size_of_skills(token, 300).then().extract().as(AssetsResponsePojo.class);
-        boolean checkId = response.getContent().stream().map(Content::getId).anyMatch(id -> id.equals(skillId));
+    void given_active_token_check_if_can_add_skill_with_Food_group_test() {
+        Response createdSkill = SkillEndpoints.post_skill(token, SkillGroup.FOOD);
+        assertThat(createdSkill.statusCode(), is(201));
 
-        assertTrue(checkId);
+        Response getCreatedSkill = SkillEndpoints.get_skillById(token, createdSkill.jsonPath().getInt("id"));
+        assertThat(getCreatedSkill.getStatusCode(), is(200));
+        assertThat(getCreatedSkill.body().jsonPath().getString("id"), is(notNullValue()));
+        assertThat(getCreatedSkill.body().jsonPath().getString("group"), is(SkillGroup.FOOD.toString()));
     }
 
     @Test
     @DisplayName("Being authorized post/add a new skill with General group and check if added to the list")
-    void given_active_token_check_if_can_add_skill_with_general_group_test() {
-        int skillId = SkillEndpoints.post_skill(token, SkillGroup.GENERAL).then().extract().body().jsonPath().getInt("id");
-        AssetsResponsePojo response = SkillEndpoints.get_specific_size_of_skills(token, 300).then().extract().as(AssetsResponsePojo.class);
-        boolean checkId = response.getContent().stream().map(Content::getId).anyMatch(id -> id.equals(skillId));
+    void given_active_token_check_if_can_add_skill_with_General_group_test() {
+        Response createdSkill = SkillEndpoints.post_skill(token, SkillGroup.GENERAL);
+        assertThat(createdSkill.statusCode(), is(201));
 
-        assertTrue(checkId);
+        Response getCreatedSkill = SkillEndpoints.get_skillById(token, createdSkill.jsonPath().getInt("id"));
+        assertThat(getCreatedSkill.getStatusCode(), is(200));
+        assertThat(getCreatedSkill.body().jsonPath().getString("id"), is(notNullValue()));
+        assertThat(getCreatedSkill.body().jsonPath().getString("group"), is(SkillGroup.GENERAL.toString()));
     }
 
     @Test
     @DisplayName("Being authorized post/add a new skill with Technical group and check if added to the list")
-    void given_active_token_check_if_can_add_skill_with_technical_group_test() {
-        int skillId = SkillEndpoints.post_skill(token, SkillGroup.TECHNICAL).then().extract().body().jsonPath().getInt("id");
-        AssetsResponsePojo response = SkillEndpoints.get_specific_size_of_skills(token, 300).then().extract().as(AssetsResponsePojo.class);
-        boolean checkId = response.getContent().stream().map(Content::getId).anyMatch(id -> id.equals(skillId));
+    void given_active_token_check_if_can_add_skill_with_Technical_group_test() {
+        Response createdSkill = SkillEndpoints.post_skill(token, SkillGroup.TECHNICAL);
+        assertThat(createdSkill.statusCode(), is(201));
 
-        assertTrue(checkId);
+        Response getCreatedSkill = SkillEndpoints.get_skillById(token, createdSkill.jsonPath().getInt("id"));
+        assertThat(getCreatedSkill.getStatusCode(), is(200));
+        assertThat(getCreatedSkill.body().jsonPath().getString("id"), is(notNullValue()));
+        assertThat(getCreatedSkill.body().jsonPath().getString("group"), is(SkillGroup.TECHNICAL.toString()));
     }
 
     @Test
@@ -98,7 +108,7 @@ public class SkillTests extends BaseClass {
         Response response = SkillEndpoints.get_skillById(token, skillId);
         int createdSkillId = response.body().jsonPath().getInt("id");
 
-        assertEquals(response.statusCode(), HttpStatus.SC_OK);
+        assertEquals(response.statusCode(), 200);
         assertEquals(skillId, createdSkillId);
         assertThat(response.getBody().jsonPath().getString("name"), is(notNullValue()));
         assertThat(response.getBody().jsonPath().getString("authorName"), is(notNullValue()));
@@ -108,12 +118,45 @@ public class SkillTests extends BaseClass {
     @DisplayName("Create a skill, update it's name and check whether updated properly")
     void create_skill_then_update_name_and_check_if_updated_properly_test() {
         SkillPojo skillPojo = SkillEndpoints.post_skill_return_pojo(token, SkillGroup.CONSTRUCTION);
-        SkillPojo updatedProfession = SkillEndpoints.put_skillById(token,skillPojo.getId()).then().extract().body().as(SkillPojo.class);
+        SkillPojo updatedProfession = SkillEndpoints.put_skillById(token,skillPojo.getId(), SkillGroup.CONSTRUCTION).then().extract().body().as(SkillPojo.class);
         Response retrieveUpdatedProfession = SkillEndpoints.get_skillById(token,skillPojo.getId());
 
         assertEquals(retrieveUpdatedProfession.statusCode(), HttpStatus.SC_OK);
         assertThat(updatedProfession.getName(), is(retrieveUpdatedProfession.body().jsonPath().getString("name")));
     }
 
+    @Test
+    @DisplayName("Create a skill, update name, and check whether updated properly")
+    void create_skill_then_update_name_and_check_if_name_updated_properly_test() {
+        SkillPojo createdSkill = SkillEndpoints.post_skill(token, SkillGroup.PERMISSIONS).then().extract().as(SkillPojo.class);
+        Response getCreatedSkill = SkillEndpoints.get_skillById(token, createdSkill.getId());
+        assertEquals(getCreatedSkill.statusCode(), 200);
+
+        SkillPojo updateSkill = SkillEndpoints.put_skillById(token, createdSkill.getId(), SkillGroup.PERMISSIONS).then().extract().as(SkillPojo.class);
+        Response getUpdatedSkill = SkillEndpoints.get_skillById(token, createdSkill.getId());
+
+        assertEquals(getUpdatedSkill.statusCode(), 200);
+        assertThat(createdSkill.getName(), is(not(equalTo(updateSkill.getName()))));
+        assertThat(createdSkill.getId(), is(equalTo(updateSkill.getId())));
+    }
+
+
+    @Test
+    @DisplayName("Create a skill, delete it, and check whether deleted properly")
+    void create_skill_then_delete_and_check_if_deleted_properly_test() {
+        SkillPojo createdSkill = SkillEndpoints.post_skill(token, SkillGroup.PERMISSIONS).then().extract().as(SkillPojo.class);
+        Response getCreatedSkill = SkillEndpoints.get_skillById(token, createdSkill.getId());
+        assertEquals(getCreatedSkill.statusCode(), 200);
+
+        Response deleteSkill = SkillEndpoints.delete_skillById(token, createdSkill.getId());
+        assertEquals(deleteSkill.statusCode(), 204);
+        Response getDeletedSkill = SkillEndpoints.get_skillById(token, createdSkill.getId());
+        assertThat(getDeletedSkill.statusCode(), is(404));
+        assertThat(getDeletedSkill.getBody().jsonPath().getString("message"), is("Skill not found"));
+    }
+
+
+
+    
 
 }
