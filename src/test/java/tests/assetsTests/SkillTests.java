@@ -155,8 +155,6 @@ public class SkillTests extends BaseClass {
         assertThat(getDeletedSkill.getBody().jsonPath().getString("message"), is("Skill not found"));
     }
 
-
-
     
 
 }

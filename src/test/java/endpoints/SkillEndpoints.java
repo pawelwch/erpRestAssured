@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 
 public class SkillEndpoints {
 
-    static Faker faker = new Faker();
+    private static Faker faker = new Faker();
     private static final String GET_SKILLS_ENDPOINT = "/skill";
     private static final String GET_SKILL_BY_ID_ENDPOINT = "/skill/{skillId}";
     private static final String POST_SKILL_ENDPOINT = "/skill";

@@ -14,7 +14,7 @@ import static io.restassured.RestAssured.given;
 
 public class FactoryEndpoints {
 
-    static Faker faker = new Faker();
+    private static Faker faker = new Faker();
 
     private static final String GET_FACTORY_ENDPOINT = "/factory";
     private static final String POST_FACTORY_ENDPOINT = "/factory";
