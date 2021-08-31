@@ -10,6 +10,8 @@ import pojos.userPojo.EntireUserProfile;
 import pojos.userPojo.User;
 import pojos.userPojo.UserTypes;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -107,12 +109,11 @@ public class OperatorsTests extends BaseClass{
     void create_Administrator_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
         int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
-        Response response = OperatorsEndpoints.delete_userById("Tester123!", userId, token);
+        Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
-        //todo dopisac dodatkową assercje
     }
 
     @Test
@@ -120,12 +121,11 @@ public class OperatorsTests extends BaseClass{
     void create_Central_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
         int userId = OperatorsEndpoints.post_user(token, UserTypes.CENTRAL).then().extract().body().jsonPath().getInt("id");
-        Response response = OperatorsEndpoints.delete_userById("Tester123!", userId, token);
+        Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
-        //todo dopisac dodatkową assercje
     }
 
     @Test
@@ -133,51 +133,16 @@ public class OperatorsTests extends BaseClass{
     void create_Foreman_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
         int userId = OperatorsEndpoints.post_user(token, UserTypes.FOREMAN).then().extract().body().jsonPath().getInt("id");
-        Response response = OperatorsEndpoints.delete_userById("Tester123!", userId, token);
+        Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
-        //todo dopisac dodatkową assercje
     }
-
-
-
-//    @Test
-//    @DisplayName("After creating an Administrator user role, then try to block him and check if blocked properly")
-//    void create_Administrator_role_then_verify_his_account_block_him_and_check_if_blocked_test() {
-//        //1. logowanie
-//        String token = AuthorizationEndpoints.postAuth_getToken();
-//        //2. tworzenie Operatora
-//        int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
-//        //todo dodac metode na aktywacje konta
-//        //Response verifyResponse = UsersEndpoints.activate_user()
-//        //3. blockowanie Operatora poprzez podanie jego id i hasła
-//        Response response = OperatorsEndpoints.put_block_userById("Tester123!", userId, token);
-//        //4. assercja czy został zablokowany
-//        assertThat(response.statusCode(), is(204));
-//    }
-
-//    @Test
-//    @DisplayName("Edit the Operator phone number")
-//    void create_new_Administrator_edit_his_phone_number_and_check_if_updated_correctly_test(){
-//        String token = AuthorizationEndpoints.postAuth_getToken();
-//        User userBody = OperatorsEndpoints.post_user_return_user_object(token, UserTypes.ADMINISTRATOR);
-//        String createdUserPhoneNumber = userBody.getPhone();
-//
-////        userBody.setPhone(Random);
-////        Response editedPhone = UsersEndpoints.put_edit_user();
-//
-//    }
-
-
-
 
     //todo test na blokowanie usera
     //todo test na aktywacje usera
     //todo test edycji usera
-
-
-
+    
 
 }

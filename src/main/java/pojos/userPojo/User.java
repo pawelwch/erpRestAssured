@@ -21,4 +21,5 @@ public class User {
     private String avatar;
     private String email;
     private UserTypes type;
+    //private Factory factory;
 }

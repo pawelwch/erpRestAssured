@@ -25,5 +25,4 @@ public class BaseClass {
                 .addFilter(new AllureRestAssured());
         RestAssured.requestSpecification = requestSpecBuilder.build();
     }
-
 }

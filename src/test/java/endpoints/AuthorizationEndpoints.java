@@ -17,7 +17,6 @@ public class AuthorizationEndpoints {
                 .when().post(POST_AUTH_ENDPOINT);
     }
 
-
     public static Response postAuth_userAuthorized() {
         UserLogin userLogin = new UserLogin();
         userLogin.setEmail("admin@admin.pl");
@@ -53,19 +52,5 @@ public class AuthorizationEndpoints {
         return given().body(userLogin)
                 .when().post(POST_AUTH_ENDPOINT).body().jsonPath().getString("accessToken");
     }
-
-//    public static Response postAuth_userNotAuthorized_specificNumberOfTimes(int times) {
-//        UserLogin userLogin = new UserLogin();
-//        userLogin.setEmail("pawel.maryniak+1@4soft.co");
-//        userLogin.setPassword("wrongPassword");
-
-//        for (int i ; i < 5; i++){
-//
-//            return given().body(userLogin)
-//                    .when().post(POST_AUTH_ENDPOINT);
-//        }
-//    }
-
-
 
 }

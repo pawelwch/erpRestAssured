@@ -18,7 +18,7 @@ public class EntireUserProfile {
     private String email;
     private String status;
     private String userType;
-    private Factory factory;
+    //private Factory factory;
     private UserProfile userProfile;
     private String createdAt;
     private String lastPasswordChange;

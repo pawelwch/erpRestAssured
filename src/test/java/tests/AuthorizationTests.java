@@ -60,17 +60,7 @@ public class AuthorizationTests extends BaseClass{
 
         assertEquals(response.statusCode(), HttpStatus.SC_NOT_ACCEPTABLE);
         assertEquals(bodyMessage, RESPONSE_MESSAGE_TOO_MANY_LOGIN_ATTEMPTS);
-
     }
-
-//    @Test
-//    void builderTest() {
-//        Response response = AuthorizationEndpoints.userAuthBuilder("asasd", "DFgfd");
-//        String
-//    }
-
-
-
 
 
 }
