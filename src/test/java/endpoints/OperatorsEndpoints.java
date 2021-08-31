@@ -98,12 +98,6 @@ public class OperatorsEndpoints {
                 .when().put(BLOCK_OPERATOR_BY_ID_ENDPOINT);
     }
 
-//    @DisplayName("Method is activating the user")
-//    public static Response activate_user(String token, User userActivationPayload){
-//        return given().body(userActivationPayload)
-//                .when().post(ACTIVATE_USER_ENDPOINT);
-//    }
-
     @DisplayName("Method allowing to block other Operators")
     public static Response put_edit_user(User userBody, int userId, String token) {
         return given().body(userBody).pathParam("userId", userId).auth().preemptive().oauth2(token)

@@ -19,7 +19,6 @@ public class EmployeeTests extends BaseClass{
     void beforeTest() {
         token = AuthorizationEndpoints.postAuth_getToken();
         faker = new Faker();
-
     }
 
     @Test

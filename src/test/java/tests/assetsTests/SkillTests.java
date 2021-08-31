@@ -140,7 +140,6 @@ public class SkillTests extends BaseClass {
         assertThat(createdSkill.getId(), is(equalTo(updateSkill.getId())));
     }
 
-
     @Test
     @DisplayName("Create a skill, delete it, and check whether deleted properly")
     void create_skill_then_delete_and_check_if_deleted_properly_test() {
@@ -154,7 +153,5 @@ public class SkillTests extends BaseClass {
         assertThat(getDeletedSkill.statusCode(), is(404));
         assertThat(getDeletedSkill.getBody().jsonPath().getString("message"), is("Skill not found"));
     }
-
-    
 
 }

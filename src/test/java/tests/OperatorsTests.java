@@ -140,43 +140,9 @@ public class OperatorsTests extends BaseClass{
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
     }
 
-
-
-//    @Test
-//    @DisplayName("After creating an Administrator user role, then try to block him and check if blocked properly")
-//    void create_Administrator_role_then_verify_his_account_block_him_and_check_if_blocked_test() {
-//        //1. logowanie
-//        String token = AuthorizationEndpoints.postAuth_getToken();
-//        //2. tworzenie Operatora
-//        int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
-//        //todo ze wzgledu na brak mozliwosci pobrania token - user nie moze zostac zweryfikowany
-//        //Response verifyResponse = UsersEndpoints.activate_user()
-//        //3. blockowanie Operatora poprzez podanie jego id i hasła
-//        Response response = OperatorsEndpoints.put_block_userById("Tester123!", userId, token);
-//        //4. assercja czy został zablokowany
-//        assertThat(response.statusCode(), is(204));
-//    }
-
-//    @Test
-//    @DisplayName("Edit the Operator phone number")
-//    void create_new_Administrator_edit_his_phone_number_and_check_if_updated_correctly_test(){
-//        String token = AuthorizationEndpoints.postAuth_getToken();
-//        User userBody = OperatorsEndpoints.post_user_return_user_object(token, UserTypes.ADMINISTRATOR);
-//        String createdUserPhoneNumber = userBody.getPhone();
-//
-////        userBody.setPhone(Random);
-////        Response editedPhone = UsersEndpoints.put_edit_user();
-//
-//    }
-
-
-
-
     //todo test na blokowanie usera
     //todo test na aktywacje usera
     //todo test edycji usera
-
-
-
+    
 
 }

@@ -72,23 +72,5 @@ public class FactoryEndpoints {
                 .when().delete(DELETE_FACTORY_BY_ID_ENDPOINT);
     }
 
-//    public static FactoryPojo buildUpdatedFactory() {
-//        return FactoryPojo.builder()
-//                .company(faker.company().name() + "updated")
-//                .codeName(faker.name().suffix() + faker.number() + "updated")
-//                .street(faker.address().streetAddress() + "updated")
-//                .city(City.builder().id(12).build())
-//                .postcode("12-123")
-//                .streetNumber(faker.address().streetAddressNumber() + "updated")
-//                .houseNumber(faker.address().buildingNumber() + "updated")
-//                .build();
-//    }
-//
-//    public static FactoryPojo buildCompanyUpdate() {
-//        return FactoryPojo.builder()
-//                .company(faker.company().name() + "updated")
-//                .build();
-//    }
-
 
 }

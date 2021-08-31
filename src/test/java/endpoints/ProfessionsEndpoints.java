@@ -75,9 +75,4 @@ public class ProfessionsEndpoints {
                 .when().delete(DELETE_PROFESSION_BY_ID_ENDPOINT);
     }
 
-
-
-
-
-
 }

@@ -33,7 +33,6 @@ public class EmployeeEndpoints {
                 .then().extract().as(EmployeePojo.class);
     }
 
-
     @DisplayName("Validate draft / add employee basic data")
     public static EmployeePojo put_employee_draft_with_basic_data(String token, String avatar, Integer draftId, Document document) {
 
@@ -70,7 +69,5 @@ public class EmployeeEndpoints {
                 .when().put(PUT_CREATE_EMPLOYEE_DRAFT_ENDPOINT)
                 .then().extract().response();
     }
-
-
 
 }
