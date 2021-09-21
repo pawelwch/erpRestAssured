@@ -3,6 +3,7 @@ package endpoints;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
+import pojos.employeePojo.CorrespondenceAddress;
 import pojos.employeePojo.Document;
 import pojos.employeePojo.EmployeePojo;
 import pojos.employeePojo.Gender;
@@ -33,41 +34,44 @@ public class EmployeeEndpoints {
                 .then().extract().as(EmployeePojo.class);
     }
 
-    @DisplayName("Validate draft / add employee basic data")
-    public static EmployeePojo put_employee_draft_with_basic_data(String token, String avatar, Integer draftId, Document document) {
+//    @DisplayName("Validate draft / add employee basic data")
+//    public static void put_employee_draft_with_basic_data(String token, String avatar, Integer draftId, Document document) {
+//
+//        EmployeePojo employeePojo = EmployeePojo.builder()
+//                .avatarUrl(avatar)
+//                .dateOfBirth(Instant.now().toString())
+//                .documentNumber("AKI" + faker.number().digits(6))
+//                .document(document)
+//                .draftId(draftId)
+//                .fullName(faker.name().fullName())
+//                .gender(Gender.MALE.toString())
+//                .nationality("POL")
+//                .build();
+//
+//        given().auth().preemptive().oauth2(token).body(employeePojo)
+//                .when().put(PUT_VALID_EMPLOYEE_DRAFT_ENDPOINT);
+//    }
 
+    public static Response put_employee_draft_create( String token, String avatar, Document document, Integer draftId) {
         EmployeePojo employeePojo = EmployeePojo.builder()
+                .fullName(faker.name().fullName())
+                //.correspondenceAddress()
                 .avatarUrl(avatar)
                 .dateOfBirth(Instant.now().toString())
                 .documentNumber("AKI" + faker.number().digits(6))
                 .document(document)
                 .draftId(draftId)
-                .fullName(faker.name().fullName())
                 .gender(Gender.MALE.toString())
                 .nationality("POL")
+                .emailAddress(faker.name().username() + "@test.com")
+                .factoryId(faker.number().numberBetween(1, 15))
+                //.identityNumber()
+                .roomId(faker.number().numberBetween(1, 20))
                 .build();
 
         return given().auth().preemptive().oauth2(token).body(employeePojo)
-                .when().put(PUT_VALID_EMPLOYEE_DRAFT_ENDPOINT)
-                .then().extract().as(EmployeePojo.class);
+                .when().put(PUT_CREATE_EMPLOYEE_DRAFT_ENDPOINT);
     }
 
-    public static Response put_employee_draft_create(String token, String avatar, int factoryId, int roomId, Integer draftId, String documentNumber, String identityNumber, String dateOfBirth, String nationality) {
-        EmployeePojo employeePojo = EmployeePojo.builder()
-                .avatarUrl(avatar)
-                .documentNumber(documentNumber)
-                .identityNumber(identityNumber)
-                .dateOfBirth(dateOfBirth)
-                .nationality(nationality)
-                .factoryId(factoryId)
-                .roomId(roomId)
-                .draftId(draftId)
-
-                .build();
-
-        return given().auth().preemptive().oauth2(token).body(employeePojo)
-                .when().put(PUT_CREATE_EMPLOYEE_DRAFT_ENDPOINT)
-                .then().extract().response();
-    }
 
 }

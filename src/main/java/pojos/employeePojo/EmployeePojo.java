@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
 @ToString
 public class EmployeePojo {
 
@@ -34,5 +34,8 @@ public class EmployeePojo {
     private String houseNumber;
     private Integer factoryId;
     private Integer roomId;
-    private Integer correspondenceAddressId;
+    private CorrespondenceAddress correspondenceAddress;
+    private ResidenceAddress residenceAddress;
+
+
 }

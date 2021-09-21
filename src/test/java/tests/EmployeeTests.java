@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pojos.employeePojo.EmployeePojo;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 public class EmployeeTests extends BaseClass{
 
     private String token;
@@ -22,11 +24,13 @@ public class EmployeeTests extends BaseClass{
     }
 
     @Test
-    @DisplayName("Register a random employee")
+    @DisplayName("Register a employee with random data")
     void register_random_employee() {
         EmployeePojo createEmployeeDraft = EmployeeEndpoints.post_employee_draft(token);
-        EmployeePojo putEmployeeBasicData = EmployeeEndpoints.put_employee_draft_with_basic_data(token, createEmployeeDraft.getAvatarUrl(), createEmployeeDraft.getDraftId(), createEmployeeDraft.getDocument());
-        Response finishEmployeeDraft = EmployeeEndpoints.put_employee_draft_create(token , createEmployeeDraft.getAvatarUrl(), 1, 2, createEmployeeDraft.getDraftId(), createEmployeeDraft.getDocumentNumber(), createEmployeeDraft.getIdentityNumber(), createEmployeeDraft.getDateOfBirth(), createEmployeeDraft.getNationality());
+        Response finishEmployeeDraft = EmployeeEndpoints.put_employee_draft_create(token, createEmployeeDraft.getAvatarUrl(), createEmployeeDraft.getDocument(), createEmployeeDraft.getDraftId());
+        assertThat(finishEmployeeDraft.getBody().jsonPath().getInt("id"), is(notNullValue()));
+
     }
+
 }
 
