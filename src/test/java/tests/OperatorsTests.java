@@ -7,10 +7,7 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.testng.annotations.Test;
 import pojos.userPojo.EntireUserProfile;
-import pojos.userPojo.User;
-import pojos.userPojo.UserTypes;
-
-import java.util.List;
+import pojos.userPojo.UserType;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,7 +33,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("Create Administrator role with random data and check if created properly")
     void create_Administrator_with_random_data_and_check_if_correctly_created_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();;
-        int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
+        int userId = OperatorsEndpoints.post_user(token, UserType.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
         Response getUserById = OperatorsEndpoints.get_userById(token, userId);
 
         assertEquals(userId, getUserById.body().jsonPath().getInt("id"));
@@ -48,7 +45,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("Create Central role with random data and check if created properly")
     void create_Central_with_random_data_and_check_if_correctly_created_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
-        int userId = OperatorsEndpoints.post_user(token, UserTypes.CENTRAL).then().extract().body().jsonPath().getInt("id");
+        int userId = OperatorsEndpoints.post_user(token, UserType.CENTRAL).then().extract().body().jsonPath().getInt("id");
         Response getUserById = OperatorsEndpoints.get_userById(token, userId);
 
         assertEquals(userId, getUserById.body().jsonPath().getInt("id"));
@@ -60,7 +57,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("Create Foreman role with random data and check if created properly")
     void create_Foreman_with_random_data_and_check_if_correctly_created_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
-        int userId = OperatorsEndpoints.post_user(token, UserTypes.FOREMAN).then().extract().body().jsonPath().getInt("id");
+        int userId = OperatorsEndpoints.post_user(token, UserType.FOREMAN).then().extract().body().jsonPath().getInt("id");
         Response getUserById = OperatorsEndpoints.get_userById(token, userId);
 
         assertEquals(userId, getUserById.body().jsonPath().getInt("id"));
@@ -72,7 +69,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("After creating an Administrator role, get all user data by passing his ID and check if correct data returned")
     void create_Administrator_get_him_by_passing_id_and_check_if_correctly_created_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
-        EntireUserProfile user = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().as(EntireUserProfile.class);
+        EntireUserProfile user = OperatorsEndpoints.post_user(token, UserType.ADMINISTRATOR).then().extract().body().as(EntireUserProfile.class);
         Response createdUserData = OperatorsEndpoints.get_userById(token, user.getId());
 
         assertThat(user.getUserProfile().getId(), is(createdUserData.body().jsonPath().getInt("id")));
@@ -84,7 +81,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("After creating an Central role, get all user data by passing his ID and check if correct data returned")
     void create_Central_get_him_by_passing_id_and_check_if_correctly_created_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
-        EntireUserProfile user = OperatorsEndpoints.post_user(token, UserTypes.CENTRAL).then().extract().body().as(EntireUserProfile.class);
+        EntireUserProfile user = OperatorsEndpoints.post_user(token, UserType.CENTRAL).then().extract().body().as(EntireUserProfile.class);
         Response createdUserData = OperatorsEndpoints.get_userById(token, user.getId());
 
         assertThat(user.getUserProfile().getId(), is(createdUserData.body().jsonPath().getInt("id")));
@@ -96,7 +93,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("After creating an Foreman role, get all user data by passing his ID and check if correct data returned")
     void create_Foreman_get_him_by_passing_id_and_check_if_correctly_created_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
-        EntireUserProfile user = OperatorsEndpoints.post_user(token, UserTypes.FOREMAN).then().extract().body().as(EntireUserProfile.class);
+        EntireUserProfile user = OperatorsEndpoints.post_user(token, UserType.FOREMAN).then().extract().body().as(EntireUserProfile.class);
         Response createdUserData = OperatorsEndpoints.get_userById(token, user.getId());
 
         assertThat(user.getUserProfile().getId(), is(createdUserData.body().jsonPath().getInt("id")));
@@ -108,7 +105,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("After creating an ADMINISTRATOR role, then try to delete him and check if deleted properly")
     void create_Administrator_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
-        int userId = OperatorsEndpoints.post_user(token, UserTypes.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
+        int userId = OperatorsEndpoints.post_user(token, UserType.ADMINISTRATOR).then().extract().body().jsonPath().getInt("id");
         Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
@@ -120,7 +117,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("After creating an CENTRAL role, then try to delete him and check if deleted properly")
     void create_Central_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
-        int userId = OperatorsEndpoints.post_user(token, UserTypes.CENTRAL).then().extract().body().jsonPath().getInt("id");
+        int userId = OperatorsEndpoints.post_user(token, UserType.CENTRAL).then().extract().body().jsonPath().getInt("id");
         Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
@@ -132,7 +129,7 @@ public class OperatorsTests extends BaseClass{
     @DisplayName("After creating an FOREMAN role, then try to delete him and check if deleted properly")
     void create_Foreman_role_delete_him_check_if_deleted_test() {
         String token = AuthorizationEndpoints.postAuth_getToken();
-        int userId = OperatorsEndpoints.post_user(token, UserTypes.FOREMAN).then().extract().body().jsonPath().getInt("id");
+        int userId = OperatorsEndpoints.post_user(token, UserType.FOREMAN).then().extract().body().jsonPath().getInt("id");
         Response response = OperatorsEndpoints.delete_userById("maselko", userId, token);
         assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
@@ -140,9 +137,11 @@ public class OperatorsTests extends BaseClass{
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
     }
 
-    //todo test na blokowanie usera
-    //todo test na aktywacje usera
-    //todo test edycji usera
+
+    //todo test na blokowanie operatora
+    //todo test na aktywacje operatora
+    //todo test edycji operatora
+
     
 
 }

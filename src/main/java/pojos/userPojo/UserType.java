@@ -1,5 +1,5 @@
 package pojos.userPojo;
 
-public enum UserTypes {
+public enum UserType {
      ADMINISTRATOR, CENTRAL, FOREMAN
 }

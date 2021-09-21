@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
-public class User {
+public class User{
     private Integer id;
     private List<Integer> roleIds;
     private String phone;
@@ -20,6 +20,8 @@ public class User {
     private String fullName;
     private String avatar;
     private String email;
-    private UserTypes type;
-    //private Factory factory;
+    private UserType type;
+
 }
+
+

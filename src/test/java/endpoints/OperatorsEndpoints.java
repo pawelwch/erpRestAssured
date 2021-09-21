@@ -5,11 +5,12 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import pojos.userManagement.UserDeleteCommand;
 import pojos.userPojo.User;
-import pojos.userPojo.UserTypes;
+import pojos.userPojo.UserType;
 
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 
 public class OperatorsEndpoints {
 
@@ -32,18 +33,18 @@ public class OperatorsEndpoints {
     //todo dokonczyc
 
     @DisplayName("Method to add/post a new user")
-    public static Response post_user(String token, UserTypes userTypes) {
+    public static Response post_user(String token, UserType userType) {
         User user = User.builder()
                 .email(faker.internet().emailAddress())
                 .phone("+48" + faker.phoneNumber().subscriberNumber(9))
                 .contactPhone("+48" + faker.phoneNumber().subscriberNumber(9))
-                .type(userTypes)
+                .type(userType)
                 .fullName(faker.name().fullName())
                 .avatar(faker.avatar().image())
                 .roleIds(List.of(1,2))
                 .build();
 
-        if (userTypes.equals(UserTypes.FOREMAN)) {
+        if (userType.equals(UserType.FOREMAN)) {
             user.setFactoryId(1);
         }
 
@@ -52,18 +53,18 @@ public class OperatorsEndpoints {
     }
 
     @DisplayName("Method to add/post a new user")
-    public static User post_user_return_user_object(String token, UserTypes userTypes) {
+    public static User post_user_return_user_object(String token, UserType userType) {
         User user = User.builder()
                 .email(faker.internet().emailAddress())
                 .phone("+48" + faker.phoneNumber().subscriberNumber(9))
                 .contactPhone("+48" + faker.phoneNumber().subscriberNumber(9))
-                .type(userTypes)
+                .type(userType)
                 .fullName(faker.name().fullName())
                 .avatar(faker.avatar().image())
                 .roleIds(List.of(1,2))
                 .build();
 
-        if (userTypes.equals(UserTypes.FOREMAN)) {
+        if (userType.equals(UserType.FOREMAN)) {
             user.setFactoryId(1);
         }
 
@@ -103,5 +104,6 @@ public class OperatorsEndpoints {
         return given().body(userBody).pathParam("userId", userId).auth().preemptive().oauth2(token)
                 .when().put(BLOCK_OPERATOR_BY_ID_ENDPOINT);
     }
+
 
 }
