@@ -3,7 +3,6 @@ package tests;
 import com.github.javafaker.Faker;
 import endpoints.AuthorizationEndpoints;
 import endpoints.EmployeeEndpoints;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.testng.annotations.BeforeMethod;
@@ -12,10 +11,12 @@ import pojos.employeePojo.EmployeePojo;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.testng.Assert.assertEquals;
+
 public class EmployeeTests extends BaseClass{
 
     private String token;
-    private Faker faker;
+    protected Faker faker;
 
     @BeforeMethod
     void beforeTest() {
@@ -24,13 +25,22 @@ public class EmployeeTests extends BaseClass{
     }
 
     @Test
-    @DisplayName("Register a employee with random data")
-    void register_random_employee() {
+    @DisplayName("Register a employee with random data and verify if created properly")
+    void register_employee_with_random_data() {
         EmployeePojo createEmployeeDraft = EmployeeEndpoints.post_employee_draft(token);
         Response finishEmployeeDraft = EmployeeEndpoints.put_employee_draft_create(token, createEmployeeDraft.getAvatarUrl(), createEmployeeDraft.getDocument(), createEmployeeDraft.getDraftId());
-        assertThat(finishEmployeeDraft.getBody().jsonPath().getInt("id"), is(notNullValue()));
+        int userId = finishEmployeeDraft.getBody().jsonPath().getInt("id");
+        assertThat(finishEmployeeDraft.getBody().jsonPath().getString("fullName"), is(notNullValue()));
+        assertThat(finishEmployeeDraft.statusCode(), is(200));
 
+        Response getCreatedUser = EmployeeEndpoints.get_employee(token, userId);
+        assertThat(getCreatedUser.statusCode(), is(200));
+        assertEquals(userId, getCreatedUser.getBody().jsonPath().getInt("id"));
+        assertEquals(finishEmployeeDraft.getBody().jsonPath().getString("fullName"), getCreatedUser.getBody().jsonPath().getString("fullName"));
     }
 
+//    @Test
+//    @DisplayName("Register an employee, then edit his basic phone number and check if edited")
+//    void
 }
 

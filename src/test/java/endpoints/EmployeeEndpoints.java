@@ -11,6 +11,7 @@ import pojos.employeePojo.Gender;
 import java.io.File;
 import java.time.Instant;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.given;
 
@@ -24,6 +25,7 @@ public class EmployeeEndpoints {
     private static final String PUT_CREATE_EMPLOYEE_DRAFT_ENDPOINT = "/employee-draft/create"; // Create employee
     private static final String DELETE_EMPLOYEE_DRAFT_ENDPOINT = "/employee-draft";
     private static final String PUT_VALID_EMPLOYEE_DRAFT_ENDPOINT = "/employee-draft/valid";
+    private static final String GET_EMPLOYEE = "/employee/basic/{id}";
 
     @DisplayName("Create employee draft")
     public static EmployeePojo post_employee_draft(String token) {
@@ -66,12 +68,16 @@ public class EmployeeEndpoints {
                 .emailAddress(faker.name().username() + "@test.com")
                 .factoryId(faker.number().numberBetween(1, 15))
                 //.identityNumber()
-                .roomId(faker.number().numberBetween(1, 20))
+                .roomId(faker.number().numberBetween(15, 40))
                 .build();
 
         return given().auth().preemptive().oauth2(token).body(employeePojo)
                 .when().put(PUT_CREATE_EMPLOYEE_DRAFT_ENDPOINT);
     }
 
+    public static Response get_employee(String token, int id) {
+        return given().auth().oauth2(token).pathParam("id", id)
+                .when().get(GET_EMPLOYEE);
+    }
 
 }

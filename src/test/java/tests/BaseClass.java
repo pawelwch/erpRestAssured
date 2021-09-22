@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import org.testng.annotations.BeforeClass;
@@ -24,5 +25,6 @@ public class BaseClass {
                 .addFilter(new ResponseLoggingFilter())
                 .addFilter(new AllureRestAssured());
         RestAssured.requestSpecification = requestSpecBuilder.build();
+
     }
 }
