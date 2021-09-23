@@ -3,10 +3,7 @@ package endpoints;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
-import pojos.employeePojo.CorrespondenceAddress;
-import pojos.employeePojo.Document;
-import pojos.employeePojo.EmployeePojo;
-import pojos.employeePojo.Gender;
+import pojos.employeePojo.*;
 
 import java.io.File;
 import java.time.Instant;
@@ -54,7 +51,7 @@ public class EmployeeEndpoints {
 //                .when().put(PUT_VALID_EMPLOYEE_DRAFT_ENDPOINT);
 //    }
 
-    public static Response put_employee_draft_create( String token, String avatar, Document document, Integer draftId) {
+    public static Response put_employee_draft_create(String token, String avatar, Document document, Integer draftId, Integer roomId) {
         EmployeePojo employeePojo = EmployeePojo.builder()
                 .fullName(faker.name().fullName())
                 //.correspondenceAddress()
@@ -68,7 +65,9 @@ public class EmployeeEndpoints {
                 .emailAddress(faker.name().username() + "@test.com")
                 .factoryId(faker.number().numberBetween(1, 15))
                 //.identityNumber()
-                .roomId(faker.number().numberBetween(15, 40))
+                .localPhone("+48" + faker.number().digits(9))
+                .foreignPhone("+49" + faker.number().digits(9))
+                .roomId(roomId)
                 .build();
 
         return given().auth().preemptive().oauth2(token).body(employeePojo)
