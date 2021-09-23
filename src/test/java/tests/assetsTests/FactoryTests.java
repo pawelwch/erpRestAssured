@@ -5,6 +5,8 @@ import endpoints.AuthorizationEndpoints;
 import endpoints.FactoryEndpoints;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.apache.http.protocol.HTTP;
+import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.DisplayName;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -65,97 +67,46 @@ public class FactoryTests extends BaseClass {
     @Test
     @DisplayName("Create a factory, update Code Name and check whether updated")
     void create_factory_then_update_Code_Name_and_check_if_updated_properly_test() {
-        FactoryPojo factory = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
-        FactoryCommand factoryCommand = new FactoryCommand(factory);
-        factoryCommand.setCodeName(faker.code().asin());
-        FactoryPojo updatedFactory = FactoryEndpoints.put_factoryById(token, factory.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
+        FactoryPojo factoryPojo = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
+        Response getCreatedFactory = FactoryEndpoints.get_factoryById(token, factoryPojo.getId());
+        assertEquals(getCreatedFactory.statusCode(), HttpStatus.SC_OK);
 
-        assertEquals(factoryCommand.getCodeName(), updatedFactory.getCodeName());
+        FactoryPojo updateFactory = FactoryEndpoints.put_factoryById(token, getCreatedFactory.getBody().jsonPath().getInt("id")).then().extract().as(FactoryPojo.class);
+        Response getUpdatedFactory = FactoryEndpoints.get_factoryById(token, factoryPojo.getId());
+
+        assertEquals(getUpdatedFactory.statusCode(), HttpStatus.SC_OK);
+        assertThat(getUpdatedFactory.getBody().jsonPath().getString("codeName"), is(not(factoryPojo.getCodeName())));
     }
 
     @Test
     @DisplayName("Create a factory, update Company Name and check whether updated")
     void create_factory_then_update_Company_Name_and_check_if_updated_properly_test() {
-        FactoryPojo factory = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
-        FactoryCommand factoryCommand = new FactoryCommand(factory);
-        factoryCommand.setCompany(faker.company().name());
-        FactoryPojo updatedCompanyName = FactoryEndpoints.put_factoryById(token, factory.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
-        FactoryPojo getUpdatedFactory = FactoryEndpoints.get_factoryById(token, updatedCompanyName.getId()).then().extract().as(FactoryPojo.class);
-
-        assertEquals(updatedCompanyName.getCompany(), getUpdatedFactory.getCompany());
-        assertEquals(updatedCompanyName.getCompany(), getUpdatedFactory.getCompany());
-        assertThat(getUpdatedFactory.getCompany(), is(not(equalTo(factory.getCompany()))));
-    }
-
-    @Test
-    @DisplayName("Create a factory, update City and check whether updated")
-    void create_factory_then_update_City_and_check_if_updated_properly_test() {
         FactoryPojo factoryPojo = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
-        FactoryCommand factoryCommand = new FactoryCommand(factoryPojo);
-        factoryCommand.setCityId(faker.number().numberBetween(1, 100));
-        FactoryPojo updatedCity = FactoryEndpoints.put_factoryById(token, factoryPojo.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
-        FactoryPojo getUpdatedFactory = FactoryEndpoints.get_factoryById(token, updatedCity.getId()).then().extract().as(FactoryPojo.class);
+        Response getCreatedFactory = FactoryEndpoints.get_factoryById(token, factoryPojo.getId());
+        assertEquals(getCreatedFactory.statusCode(), HttpStatus.SC_OK);
 
-        assertEquals(updatedCity.getCity().getId(), getUpdatedFactory.getCity().getId());
-        assertEquals(updatedCity.getId(), getUpdatedFactory.getId());
-        assertThat(getUpdatedFactory.getCity(), is(not(equalTo(factoryPojo.getCompany()))));
+        FactoryPojo updateFactory = FactoryEndpoints.put_factoryById(token, getCreatedFactory.getBody().jsonPath().getInt("id")).then().extract().as(FactoryPojo.class);
+        Response getUpdatedFactory = FactoryEndpoints.get_factoryById(token, factoryPojo.getId());
+
+        assertEquals(getUpdatedFactory.statusCode(), HttpStatus.SC_OK);
+        assertThat(getUpdatedFactory.getBody().jsonPath().getString("name"), is(not(factoryPojo.getCodeName())));
     }
 
-    @Test
-    @DisplayName("Create a factory, update Post Code and check whether updated")
-    void create_factory_then_update_Post_Code_and_check_if_updated_properly_test() {
-        FactoryPojo factoryPojo = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
-        FactoryCommand factoryCommand = new FactoryCommand(factoryPojo);
-        factoryCommand.setPostcode(faker.address().zipCode());
-        FactoryPojo updatedPostCode = FactoryEndpoints.put_factoryById(token, factoryPojo.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
-        FactoryPojo getUpdatedPostCode = FactoryEndpoints.get_factoryById(token, updatedPostCode.getId()).then().extract().as(FactoryPojo.class);
+    //todo po zmianie w api do modyfikacji
+//    @Test
+//    @DisplayName("Create a factory, update City and check whether updated")
+//    void create_factory_then_update_Address_and_check_if_updated_properly_test() {
+//        FactoryPojo factoryPojo = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
+//        FactoryCommand factoryCommand = new FactoryCommand(factoryPojo);
+//        //factoryCommand.setCityId(faker.number().numberBetween(1, 100));
+//        FactoryPojo updatedCity = FactoryEndpoints.put_factoryById(token, factoryPojo.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
+//        FactoryPojo getUpdatedFactory = FactoryEndpoints.get_factoryById(token, updatedCity.getId()).then().extract().as(FactoryPojo.class);
+//
+//        assertEquals(updatedCity.getCity().getId(), getUpdatedFactory.getCity().getId());
+//        assertEquals(updatedCity.getId(), getUpdatedFactory.getId());
+//        assertThat(getUpdatedFactory.getCity(), is(not(equalTo(factoryPojo.getCompany()))));
+//    }
 
-        assertEquals(updatedPostCode.getPostcode(), getUpdatedPostCode.getPostcode());
-        assertEquals(updatedPostCode.getId(), getUpdatedPostCode.getId());
-        assertThat(factoryPojo.getPostcode(), is(not(equalTo(getUpdatedPostCode))));
-    }
-
-    @Test
-    @DisplayName("Create a factory, update Street and check whether updated")
-    void create_factory_then_update_Street_and_check_if_updated_properly_test() {
-        FactoryPojo factoryPojo = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
-        FactoryCommand factoryCommand = new FactoryCommand(factoryPojo);
-        factoryCommand.setStreet(faker.address().streetName());
-        FactoryPojo updatedStreet = FactoryEndpoints.put_factoryById(token, factoryPojo.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
-        FactoryPojo getUpdatedStreet = FactoryEndpoints.get_factoryById(token, updatedStreet.getId()).then().extract().as(FactoryPojo.class);
-
-        assertEquals(updatedStreet.getStreet(), getUpdatedStreet.getStreet());
-        assertEquals(updatedStreet.getId(), getUpdatedStreet.getId());
-        assertThat(getUpdatedStreet.getStreet(), is(not(equalTo(factoryPojo.getStreet()))));
-    }
-
-    @Test
-    @DisplayName("Create a factory, update Street Number and check whether updated")
-    void create_factory_then_update_Street_Number_and_check_if_updated_properly_test() {
-        FactoryPojo factoryPojo = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
-        FactoryCommand factoryCommand = new FactoryCommand(factoryPojo);
-        factoryCommand.setStreetNumber(faker.address().streetAddressNumber());
-        FactoryPojo updatedStreetNumber = FactoryEndpoints.put_factoryById(token, factoryPojo.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
-        FactoryPojo getUpdatedStreetNumber = FactoryEndpoints.get_factoryById(token, updatedStreetNumber.getId()).then().extract().as(FactoryPojo.class);
-
-        assertEquals(updatedStreetNumber.getStreetNumber(), getUpdatedStreetNumber.getStreetNumber());
-        assertEquals(updatedStreetNumber.getId(), getUpdatedStreetNumber.getId());
-        assertThat(getUpdatedStreetNumber.getStreetNumber(), is(not(equalTo(factoryPojo.getStreetNumber()))));
-    }
-
-    @Test
-    @DisplayName("Create a factory, update House Number and check whether updated")
-    void create_factory_then_update_House_Number_and_check_if_updated_properly_test() {
-        FactoryPojo factoryPojo = FactoryEndpoints.post_factory(token).then().extract().as(FactoryPojo.class);
-        FactoryCommand factoryCommand = new FactoryCommand(factoryPojo);
-        factoryCommand.setStreetNumber(faker.address().streetAddressNumber());
-        FactoryPojo updatedHouseNumber = FactoryEndpoints.put_factoryById(token, factoryPojo.getId(), factoryCommand).then().extract().as(FactoryPojo.class);
-        FactoryPojo getUpdatedHouseNumber = FactoryEndpoints.get_factoryById(token, updatedHouseNumber.getId()).then().extract().as(FactoryPojo.class);
-
-        assertEquals(updatedHouseNumber.getStreetNumber(), getUpdatedHouseNumber.getHouseNumber());
-        assertEquals(factoryPojo.getId(), getUpdatedHouseNumber.getId());
-        assertThat(getUpdatedHouseNumber.getHouseNumber(), is(not(equalTo(factoryPojo.getHouseNumber()))));
-    }
 
     @Test
     @DisplayName("Create factory, delete it and check if deleted properly")
@@ -164,9 +115,10 @@ public class FactoryTests extends BaseClass {
         Response createdFactory = FactoryEndpoints.get_factoryById(token, factory.getId());
         assertThat(createdFactory.getBody().jsonPath().getString("id"), is(notNullValue()));
 
-        FactoryEndpoints.delete_factoryById(token, createdFactory.then().extract().body().jsonPath().getInt("id"));
-        //todo dokonczyc po wprowadzeniu zmian w location providerze
-
+        Response response = FactoryEndpoints.delete_factoryById(token, createdFactory.then().extract().body().jsonPath().getInt("id"));
+        assertThat(response.statusCode(), is(HttpStatus.SC_NO_CONTENT));
+        Response getDeletedFactory = FactoryEndpoints.get_factoryById(token, factory.getId());
+        assertThat(getDeletedFactory.statusCode(), is(HttpStatus.SC_NOT_FOUND));
     }
 
 }

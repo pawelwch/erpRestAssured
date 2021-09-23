@@ -23,5 +23,6 @@ public class FactoryPojo {
         private String streetNumber;
         private String houseNumber;
         private Date createdAt;
+        private String addressId;
 
 }

@@ -39,26 +39,24 @@ public class FactoryEndpoints {
 
     @DisplayName("Post new factory with random data")
     public static Response post_factory(String token) {
-        FactoryCommand factory = new FactoryCommand();
-
-        factory.setCompany(faker.company().name());
-        factory.setCodeName(faker.company().name() + " " + faker.number().randomDigit());
-        factory.setStreet(faker.address().streetAddress());
-        factory.setPostcode(faker.address().zipCode());
-        factory.setStreetNumber(faker.address().streetAddressNumber());
-        factory.setHouseNumber(faker.address().buildingNumber());
-        factory.setCityId(faker.number().numberBetween(1, 20));
+        FactoryCommand factory = FactoryCommand.builder()
+                .company(faker.company().name())
+                .codeName(faker.company().name() + faker.number().randomDigit())
+                .addressId("16.27278/50.730396")
+                .build();
 
         return given().auth().preemptive().oauth2(token).body(factory)
                 .when().post(POST_FACTORY_ENDPOINT);
     }
 
     @DisplayName("Update specific factory by passing id")
-    public static Response put_factoryById(String token, int factoryId, FactoryCommand factoryCommand) {
-        return given().auth().preemptive().oauth2(token).body(factoryCommand)
+    public static Response put_factoryById(String token, int factoryId) {
+        return given().auth().preemptive().oauth2(token)
+                .body(new FactoryCommand(faker.company().name(), faker.company().name() + "" + faker.number().randomDigit(),"16.27278/50.730396", faker.number().digit()))
                 .pathParam("factoryId", factoryId)
                 .when().put(PUT_FACTORY_BY_ID_ENDPOINT);
     }
+
 
     @DisplayName("Get specific factory by passing id")
     public static Response get_factoryById(String token, int factoryId) {
