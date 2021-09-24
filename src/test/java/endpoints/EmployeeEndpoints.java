@@ -7,8 +7,6 @@ import pojos.employeePojo.*;
 
 import java.io.File;
 import java.time.Instant;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.given;
 
@@ -22,15 +20,16 @@ public class EmployeeEndpoints {
     private static final String PUT_CREATE_EMPLOYEE_DRAFT_ENDPOINT = "/employee-draft/create"; // Create employee
     private static final String DELETE_EMPLOYEE_DRAFT_ENDPOINT = "/employee-draft";
     private static final String PUT_VALID_EMPLOYEE_DRAFT_ENDPOINT = "/employee-draft/valid";
-    private static final String GET_EMPLOYEE = "/employee/basic/{id}";
+    private static final String GET_EMPLOYEE = "/employee/basic/{employeeId}";
+    private static final String PUT_EMPLOYEE = "/employee/basic/{employeeId}";
 
     @DisplayName("Create employee draft")
-    public static EmployeePojo post_employee_draft(String token) {
+    public static CreateEmployeeCommand post_employee_draft(String token) {
         return given().auth().preemptive().oauth2(token)
                 .header("Content-type", "multipart/form-data")
                 .multiPart("file", file, "image/jpeg")
                 .when().post(POST_EMPLOYEE_DRAFT_ENDPOINT)
-                .then().extract().as(EmployeePojo.class);
+                .then().extract().as(CreateEmployeeCommand.class);
     }
 
 //    @DisplayName("Validate draft / add employee basic data")
@@ -51,8 +50,8 @@ public class EmployeeEndpoints {
 //                .when().put(PUT_VALID_EMPLOYEE_DRAFT_ENDPOINT);
 //    }
 
-    public static Response put_employee_draft_create(String token, String avatar, Document document, Integer draftId, Integer roomId) {
-        EmployeePojo employeePojo = EmployeePojo.builder()
+    public static Employee put_employee_draft_create(String token, String avatar, Document document, Integer draftId, Integer roomId) {
+        CreateEmployeeCommand createEmployeeCommand = CreateEmployeeCommand.builder()
                 .fullName(faker.name().fullName())
                 //.correspondenceAddress()
                 .avatarUrl(avatar)
@@ -70,13 +69,18 @@ public class EmployeeEndpoints {
                 .roomId(roomId)
                 .build();
 
-        return given().auth().preemptive().oauth2(token).body(employeePojo)
-                .when().put(PUT_CREATE_EMPLOYEE_DRAFT_ENDPOINT);
+        return given().auth().preemptive().oauth2(token).body(createEmployeeCommand)
+                .when().put(PUT_CREATE_EMPLOYEE_DRAFT_ENDPOINT)
+                .then().extract().as(Employee.class);
     }
 
-    public static Response get_employee(String token, int id) {
-        return given().auth().oauth2(token).pathParam("id", id)
+    public static Response get_employee(String token, Integer employeeId) {
+        return given().auth().oauth2(token).pathParam("employeeId", employeeId)
                 .when().get(GET_EMPLOYEE);
     }
 
+    public static Response put_edit_employee_data(String token, Integer employeeId, CreateEmployeeCommand createEmployeeCommand) {
+        return given().auth().preemptive().oauth2(token).pathParam("employeeId", employeeId).body(createEmployeeCommand)
+                .when().put(PUT_EMPLOYEE);
+    }
 }
