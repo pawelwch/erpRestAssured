@@ -1,25 +1,25 @@
 package tests;
 
+import com.aventstack.extentreports.Status;
 import endpoints.AuthorizationEndpoints;
 import endpoints.OperatorsEndpoints;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import pojos.userPojo.EntireUserProfile;
 import pojos.userPojo.UserType;
-
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;;
 
 public class OperatorsTests extends BaseClass{
+
 
     @Test
     @DisplayName("After being authorized, get all user data and check if correct data returned")
     void after_login_get_user_data_and_check_if_returned_data_is_correct_test() {
+
         Response response = AuthorizationEndpoints.postAuth_userAuthorized();
         String token = response.getBody().jsonPath().getString("accessToken");
         Response getUserResponse = OperatorsEndpoints.get_loggedInUserData(token);
@@ -27,6 +27,9 @@ public class OperatorsTests extends BaseClass{
         assertEquals(getUserResponse.statusCode(), HttpStatus.SC_OK);
         assertThat(getUserResponse.body().jsonPath().getString("id"), notNullValue());
         assertThat(getUserResponse.body().jsonPath().getString("email"), notNullValue());
+        extentReports.createTest("After being authorized, get all user data and check if correct data returned")
+                .log(Status.PASS, "All users are returned after being logged in");
+
     }
 
     @Test
