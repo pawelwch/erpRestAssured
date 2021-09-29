@@ -25,7 +25,7 @@ public class BaseClass {
         RestAssured.baseURI = "https://core.test.ge.4soft.dev/";
         //RestAssured.basePath = "v2";
         extentReports = new ExtentReports();
-        ExtentSparkReporter sparkReporter = new ExtentSparkReporter("index.html");
+        ExtentSparkReporter sparkReporter = new ExtentSparkReporter("src/test/java/reports/index.html");
 
         sparkReporter.config().setTheme(Theme.DARK);
         sparkReporter.config().setDocumentTitle("Giewont Extent Report");
@@ -43,7 +43,7 @@ public class BaseClass {
     }
 
     @AfterEach
-    public void afterTestClass(){
+    public void after_test_class(){
         extentReports.flush();
     }
 }

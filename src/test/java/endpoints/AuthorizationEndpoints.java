@@ -2,9 +2,7 @@ package endpoints;
 
 import io.restassured.response.Response;
 import pojos.authPojo.UserLogin;
-
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.responseSpecification;
 
 public class AuthorizationEndpoints {
 

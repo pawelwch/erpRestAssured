@@ -4,9 +4,9 @@ import endpoints.AuthorizationEndpoints;
 import endpoints.ProfessionsEndpoints;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import pojos.assetsPojo.professionRequestPojo.ProfessionPojo;
 import pojos.assetsPojo.assetsResponsePojo.Content;
 import pojos.assetsPojo.assetsResponsePojo.AssetsResponsePojo;
@@ -22,7 +22,7 @@ public class ProfessionTests extends BaseClass {
     private static final String NOT_FOUND_PROFESSION_RESPONSE_MESSAGE = "Profession not found";
     private String token;
 
-    @BeforeMethod
+    @BeforeEach
     void beforeTest() {
         token = AuthorizationEndpoints.postAuth_getToken();
     }

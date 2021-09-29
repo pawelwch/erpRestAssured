@@ -5,13 +5,9 @@ import endpoints.AuthorizationEndpoints;
 import endpoints.FactoryEndpoints;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.apache.http.protocol.HTTP;
-import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.DisplayName;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import pojos.assetsPojo.factoryRequestPojo.City;
-import pojos.assetsPojo.factoryRequestPojo.FactoryCommand;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import pojos.assetsPojo.factoryRequestPojo.FactoryPojo;
 import tests.BaseClass;
 
@@ -24,7 +20,7 @@ public class FactoryTests extends BaseClass {
     private String token;
     private Faker faker;
 
-    @BeforeMethod
+    @BeforeEach
     void beforeTest() {
         token = AuthorizationEndpoints.postAuth_getToken();
         faker = new Faker();
@@ -49,7 +45,6 @@ public class FactoryTests extends BaseClass {
         Response getAllFactories = FactoryEndpoints.get_allFactories_WithToken(token);
 
         //todo dodac walidację
-
     }
 
     @Test
@@ -107,7 +102,6 @@ public class FactoryTests extends BaseClass {
 //        assertThat(getUpdatedFactory.getCity(), is(not(equalTo(factoryPojo.getCompany()))));
 //    }
 
-
     @Test
     @DisplayName("Create factory, delete it and check if deleted properly")
     void create_factory_then_delete_and_check_if_deleted_properly_test() {
@@ -120,5 +114,4 @@ public class FactoryTests extends BaseClass {
         Response getDeletedFactory = FactoryEndpoints.get_factoryById(token, factory.getId());
         assertThat(getDeletedFactory.statusCode(), is(HttpStatus.SC_NOT_FOUND));
     }
-
 }

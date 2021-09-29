@@ -5,12 +5,10 @@ import endpoints.ProfessionsEndpoints;
 import endpoints.SkillEndpoints;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import pojos.assetsPojo.assetsResponsePojo.AssetsResponsePojo;
-import pojos.assetsPojo.assetsResponsePojo.Content;
-import pojos.assetsPojo.professionRequestPojo.ProfessionPojo;
 import pojos.assetsPojo.skillRequestPojo.SkillGroup;
 import pojos.assetsPojo.skillRequestPojo.SkillPojo;
 import tests.BaseClass;
@@ -18,13 +16,13 @@ import tests.BaseClass;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
+
 
 public class SkillTests extends BaseClass {
 
     private String token;
 
-    @BeforeMethod
+    @BeforeEach
     void beforeTest() {
          token = AuthorizationEndpoints.postAuth_getToken();
     }

@@ -3,12 +3,8 @@ package endpoints;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
-import pojos.assetsPojo.factoryRequestPojo.City;
 import pojos.assetsPojo.factoryRequestPojo.FactoryCommand;
-import pojos.assetsPojo.factoryRequestPojo.FactoryPojo;
-import pojos.assetsPojo.professionRequestPojo.ProfessionCommand;
 
-import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 

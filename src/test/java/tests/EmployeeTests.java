@@ -46,7 +46,7 @@ public class EmployeeTests extends BaseClass{
     @Test
     @DisplayName("Register an employee, then edit his basic phone number and check if edited")
     void register_employee_then_edit_his_basic_phone_number_and_check_if_correctly_updated(){
-        int getFirstAvailableRoom = FlatEndpoints.returnFirstAvailableRoom(token);
+        int getFirstAvailableRoom = FlatEndpoints.return_first_available_room(token);
         CreateEmployeeCommand createEmployeeDraft = EmployeeEndpoints.post_employee_draft(token);
         Employee finishEmployeeDraft = EmployeeEndpoints.put_employee_draft_create(token, createEmployeeDraft.getAvatarUrl(), createEmployeeDraft.getDocument(), createEmployeeDraft.getDraftId(), getFirstAvailableRoom);
         Employee getCreatedEmployee = EmployeeEndpoints.get_employee(token, finishEmployeeDraft.getId()).then().extract().as(Employee.class);

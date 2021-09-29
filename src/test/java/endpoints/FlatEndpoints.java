@@ -14,7 +14,7 @@ public class FlatEndpoints {
                 .when().get(GET_AVAILABLE_FLATS);
     }
 
-    public static int returnFirstAvailableRoom(String token) {
+    public static int return_first_available_room(String token) {
         Response availableFlats = FlatEndpoints.get_available_flats(token);
         return availableFlats.getBody().jsonPath().getInt("content[0].rooms[0].id");
     }

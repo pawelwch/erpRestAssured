@@ -5,7 +5,6 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import pojos.assetsPojo.professionRequestPojo.ProfessionCommand;
 import pojos.assetsPojo.professionRequestPojo.ProfessionPojo;
-
 import static io.restassured.RestAssured.given;
 
 public class ProfessionsEndpoints {

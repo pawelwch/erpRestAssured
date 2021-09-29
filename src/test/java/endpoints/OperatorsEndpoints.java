@@ -6,11 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import pojos.userManagement.UserDeleteCommand;
 import pojos.userPojo.User;
 import pojos.userPojo.UserType;
-
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 
 public class OperatorsEndpoints {
 

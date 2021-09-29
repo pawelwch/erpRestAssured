@@ -4,7 +4,8 @@ import endpoints.AuthorizationEndpoints;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -52,7 +53,7 @@ public class AuthorizationTests extends BaseClass{
         assertEquals(bodyMessage, RESPONSE_MESSAGE_BAD_PASSWORD);
     }
 
-    @Test(invocationCount = 5)
+    @RepeatedTest(3)
     @DisplayName("While login, pass wrong password `n` number of times and check if too many login attempts error")
     void given_wrong_password_specific_number_of_times_check_if_too_many_attempts_error_appears_test() {
         Response response = AuthorizationEndpoints.postAuth_userNotAuthorized_WrongPassword();

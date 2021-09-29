@@ -6,7 +6,7 @@ public class Helpers {
 
     private Faker faker;
 
-    public String generateRandomLocalPhoneNumber() {
+    public String generate_random_local_phone_number() {
         return "+48" + faker.number().digits(9).toString();
     }
 }
