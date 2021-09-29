@@ -5,9 +5,9 @@ import endpoints.AuthorizationEndpoints;
 import endpoints.EmployeeEndpoints;
 import endpoints.FlatEndpoints;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import pojos.employeePojo.CreateEmployeeCommand;
 import pojos.employeePojo.Employee;
 
@@ -20,7 +20,7 @@ public class EmployeeTests extends BaseClass{
     protected Faker faker;
     protected Helpers helpers;
 
-    @BeforeMethod
+    @BeforeEach
     void beforeTest() {
         token = AuthorizationEndpoints.postAuth_getToken();
         faker = new Faker();
