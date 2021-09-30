@@ -10,8 +10,7 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+
 
 
 
@@ -39,7 +38,6 @@ public class BaseClass {
                 .addFilter(new ResponseLoggingFilter())
                 .addFilter(new AllureRestAssured());
         RestAssured.requestSpecification = requestSpecBuilder.build();
-
     }
 
     @AfterEach

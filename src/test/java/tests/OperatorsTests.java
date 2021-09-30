@@ -27,6 +27,7 @@ public class OperatorsTests extends BaseClass{
         assertEquals(getUserResponse.statusCode(), HttpStatus.SC_OK);
         assertThat(getUserResponse.body().jsonPath().getString("id"), notNullValue());
         assertThat(getUserResponse.body().jsonPath().getString("email"), notNullValue());
+
         extentReports.createTest("After being authorized, get all user data and check if correct data returned")
                 .log(Status.PASS, "All users are returned after being logged in");
 
@@ -42,6 +43,9 @@ public class OperatorsTests extends BaseClass{
         assertEquals(userId, getUserById.body().jsonPath().getInt("id"));
         assertEquals(getUserById.body().jsonPath().getString("userType"), "ADMINISTRATOR");
         assertThat(getUserById.statusCode(), is(HttpStatus.SC_OK));
+
+        extentReports.createTest("Create Administrator role with random data and check if created properly")
+                .log(Status.PASS, "The Administrator with random data is created properly");
     }
 
     @Test
@@ -54,6 +58,9 @@ public class OperatorsTests extends BaseClass{
         assertEquals(userId, getUserById.body().jsonPath().getInt("id"));
         assertEquals(getUserById.body().jsonPath().getString("userType"), "CENTRAL");
         assertThat(getUserById.statusCode(), is(HttpStatus.SC_OK));
+
+        extentReports.createTest("Create Central role with random data and check if created properly")
+                .log(Status.PASS, "The Central role operator with random data is created");
     }
 
     @Test
@@ -66,6 +73,9 @@ public class OperatorsTests extends BaseClass{
         assertEquals(userId, getUserById.body().jsonPath().getInt("id"));
         assertEquals(getUserById.body().jsonPath().getString("userType"), "FOREMAN");
         assertThat(getUserById.statusCode(), is(HttpStatus.SC_OK));
+
+        extentReports.createTest("Create Foreman role with random data and check if created properly")
+                .log(Status.PASS, "The Foreman role operator with random data is created");
     }
 
     @Test
@@ -78,6 +88,9 @@ public class OperatorsTests extends BaseClass{
         assertThat(user.getUserProfile().getId(), is(createdUserData.body().jsonPath().getInt("id")));
         assertThat(user.getEmail(), is(createdUserData.body().jsonPath().getString("email")));
         assertThat(user.getUserProfile().getFullName(), is(equalTo(createdUserData.body().jsonPath().getString("userProfile.fullName"))));
+
+        extentReports.createTest("Create Administrator, then get his profile and check if created properly")
+                .log(Status.PASS, "The Administrator with random data is created properly");
     }
 
     @Test
@@ -90,6 +103,9 @@ public class OperatorsTests extends BaseClass{
         assertThat(user.getUserProfile().getId(), is(createdUserData.body().jsonPath().getInt("id")));
         assertThat(user.getEmail(), is(createdUserData.body().jsonPath().getString("email")));
         assertThat(user.getUserProfile().getFullName(), is(equalTo(createdUserData.body().jsonPath().getString("userProfile.fullName"))));
+
+        extentReports.createTest("Create Central role operator, then get his profile and check if created properly")
+                .log(Status.PASS, "The Central operator with random data is created properly");
     }
 
     @Test
@@ -102,6 +118,9 @@ public class OperatorsTests extends BaseClass{
         assertThat(user.getUserProfile().getId(), is(createdUserData.body().jsonPath().getInt("id")));
         assertThat(user.getEmail(), is(createdUserData.body().jsonPath().getString("email")));
         assertThat(user.getUserProfile().getFullName(), is(equalTo(createdUserData.body().jsonPath().getString("userProfile.fullName"))));
+
+        extentReports.createTest("Create Foreman role operator, then get his profile and check if created properly")
+                .log(Status.PASS, "The Foreman operator with random data is created properly");
     }
 
     @Test
@@ -114,6 +133,9 @@ public class OperatorsTests extends BaseClass{
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
+
+        extentReports.createTest("Create Administrator role operator, then delete his account and check if deleted properly")
+                .log(Status.PASS, "The Administrator is deleted properly");
     }
 
     @Test
@@ -126,6 +148,9 @@ public class OperatorsTests extends BaseClass{
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
+
+        extentReports.createTest("Create Central role operator, then delete his account and check if deleted properly")
+                .log(Status.PASS, "The Central role operator is deleted properly");
     }
 
     @Test
@@ -138,6 +163,9 @@ public class OperatorsTests extends BaseClass{
         Response deletedUser = OperatorsEndpoints.get_userById(token, userId);
 
         assertThat(deletedUser.statusCode(), is(HttpStatus.SC_NOT_FOUND));
+
+        extentReports.createTest("Create Foreman role operator, then delete his account and check if deleted properly")
+                .log(Status.PASS, "The Central role operator is deleted properly");
     }
 
 
